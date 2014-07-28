@@ -38,7 +38,6 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSide) {
 
 @property (nonatomic, weak) id<SESlideTableViewCellDelegate> delegate;
 @property (nonatomic, readonly) SESlideTableViewCellSlideState slideState;
-@property (nonatomic) CGFloat preferredRightButtonWidth;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 
