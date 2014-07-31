@@ -393,18 +393,6 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 	switch (gesture.state) {
 		case UIGestureRecognizerStateBegan: {
 			[self cancelSlideAnimation];
-			CGPoint translation = [gesture translationInView:self];
-			switch (m_slideState) {
-				case SESlideTableViewCellSlideStateCenter: {
-					if (translation.x < 0 && [self canSlideToState:SESlideTableViewCellSlideStateRight]) {
-						[self prepareToSlideRight];
-					} else if (translation.x > 0 && [self canSlideToState:SESlideTableViewCellSlideStateLeft]) {
-						[self prepareToSlideLeft];
-					}
-				}	break;
-				default:
-					break;
-			}
 			m_panStartSnapshotViewOriginX = 0;
 			if (m_snapshotContainerView) {
 				m_panStartSnapshotViewOriginX = m_snapshotContainerView.frame.origin.x;
@@ -451,14 +439,27 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 			}
 			[self animateToSlideState:targetSlideState velocity:velocity.x];
 		}	break;
-		case UIGestureRecognizerStateChanged:
+		case UIGestureRecognizerStateChanged: {
+			// decide which side should be prepared
+			switch (m_slideState) {
+				case SESlideTableViewCellSlideStateCenter: {
+					CGPoint translation = [gesture translationInView:self];
+					if (translation.x < 0 && [self canSlideToState:SESlideTableViewCellSlideStateRight]) {
+						[self prepareToSlideRight];
+					} else if (translation.x > 0 && [self canSlideToState:SESlideTableViewCellSlideStateLeft]) {
+						[self prepareToSlideLeft];
+					}
+				}	break;
+				default:
+					break;
+			}
 			if (m_snapshotContainerView) {
 				CGPoint translation = [gesture translationInView:self];
 				CGRect frame = m_snapshotContainerView.frame;
 				frame.origin.x = translation.x + m_panStartSnapshotViewOriginX;
 				m_snapshotContainerView.frame = frame;
 			}
-			break;
+		}	break;
 		default:
 			break;
 	}
@@ -486,6 +487,7 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 		if (fabs(velocity.x) < fabs(velocity.y)) {
 			return NO;
 		}
+#if 0
 		if (m_preparedSlideStates == SESlideStateOptionNone) {
 			if ((velocity.x > 0) && [self canSlideToState:SESlideTableViewCellSlideStateLeft]) {
 				return YES;
@@ -497,6 +499,9 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 			return YES;
 		}
 		return NO;
+#else
+		return YES;
+#endif
 	}
 	return YES;
 }
