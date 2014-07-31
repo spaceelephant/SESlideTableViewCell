@@ -11,12 +11,19 @@ import UIKit
 class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDelegate {
 	
 	var collation: UILocalizedIndexedCollation?
+	var rightButtonDisabled: Bool = false
+	var leftButtonDisabled: Bool = false
 	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
 		let button = UIBarButtonItem(title: "Index", style: .Plain, target:self, action: "indexButtonDidTap:")
 		navigationItem.rightBarButtonItem = button
+		
+		let segmentedControl = UISegmentedControl(items: ["L", "R"])
+		segmentedControl.momentary = true
+		segmentedControl.addTarget(self, action: "toggleLeftAndRightButtons:", forControlEvents: .ValueChanged)
+		self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: segmentedControl)
     }
 
     override func didReceiveMemoryWarning() {
@@ -125,9 +132,13 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 	}
 	
 	func slideTableViewCell(cell: SESlideTableViewCell!, canSlideToState slideState: SESlideTableViewCellSlideState) -> Bool {
-		let indexPath = tableView.indexPathForCell(cell)
-		if indexPath.section == 1 && indexPath.row == 1 {
-			return false
+		switch (slideState) {
+		case .Left:
+			return !leftButtonDisabled
+		case .Right:
+			return !rightButtonDisabled
+		default:
+			break
 		}
 		return true
 	}
@@ -141,6 +152,23 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 			collation = UILocalizedIndexedCollation.currentCollation() as? UILocalizedIndexedCollation
 		}
 		tableView.reloadData()
+	}
+	
+	func toggleLeftAndRightButtons(sender: UISegmentedControl!) {
+		switch (sender.selectedSegmentIndex) {
+		case 0:
+			leftButtonDisabled = !leftButtonDisabled;
+			let message = leftButtonDisabled ? "Disabled" : "Enabled"
+			let alertView = UIAlertView(title: "Left Button", message: message, delegate: nil, cancelButtonTitle: "OK")
+			alertView.show()
+		case 1:
+			rightButtonDisabled = !rightButtonDisabled;
+			let message = rightButtonDisabled ? "Disabled" : "Enabled"
+			let alertView = UIAlertView(title: "Right Button", message: message, delegate: nil, cancelButtonTitle: "OK")
+			alertView.show()
+		default:
+			break
+		}
 	}
 
 }

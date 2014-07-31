@@ -12,6 +12,8 @@
 
 @interface SETableViewController () <SESlideTableViewCellDelegate> {
 	UILocalizedIndexedCollation* m_collation;
+	BOOL m_rightButtonDisabled;
+	BOOL m_leftButtonDisabled;
 }
 
 @end
@@ -24,6 +26,13 @@
 	{
 		UIBarButtonItem* button = [[UIBarButtonItem alloc] initWithTitle:@"Index" style:UIBarButtonItemStylePlain target:self action:@selector(indexButtonDidTap:)];
 		self.navigationItem.rightBarButtonItem = button;
+	}
+	{
+		UISegmentedControl* segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"L", @"R"]];
+		segmentedControl.momentary = YES;
+		[segmentedControl addTarget:self action:@selector(toggleLeftAndRightButtons:) forControlEvents:UIControlEventValueChanged];
+		UIBarButtonItem* button = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
+		self.navigationItem.leftBarButtonItem = button;
 	}
 }
 
@@ -148,6 +157,21 @@
 	[self.tableView reloadData];
 }
 
+- (void)toggleLeftAndRightButtons:(UISegmentedControl*)sender {
+	switch (sender.selectedSegmentIndex) {
+	case 0: {
+		m_leftButtonDisabled = ! m_leftButtonDisabled;
+		UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Left Button" message:(m_leftButtonDisabled) ? @"Disabled": @"Enabled" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alertView show];
+	}	break;
+	case 1:
+		m_rightButtonDisabled = ! m_rightButtonDisabled;
+		UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Right Button" message:(m_leftButtonDisabled) ? @"Disabled": @"Enabled" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alertView show];
+		break;
+	}
+}
+
 #pragma mark - 
 
 - (void)slideTableViewCell:(SESlideTableViewCell*)cell didTriggerLeftButton:(NSInteger)buttonIndex {
@@ -157,5 +181,17 @@
 - (void)slideTableViewCell:(SESlideTableViewCell*)cell didTriggerRightButton:(NSInteger)buttonIndex {
 	NSLog(@"right button triggered:%d", (int)buttonIndex);
 }
+
+- (BOOL)slideTableViewCell:(SESlideTableViewCell*)cell canSlideToState:(SESlideTableViewCellSlideState)slideState {
+	switch (slideState) {
+	case SESlideTableViewCellSlideStateLeft:
+		return !m_leftButtonDisabled;
+	case SESlideTableViewCellSlideStateRight:
+		return !m_rightButtonDisabled;
+	default:
+		return YES;
+	}
+}
+
 
 @end
