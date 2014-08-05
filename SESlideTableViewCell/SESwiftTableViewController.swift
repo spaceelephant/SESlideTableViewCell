@@ -33,7 +33,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
     //MARK - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
-		if collation {
+		if collation != nil {
 			return collation!.sectionIndexTitles.count
 		} else {
 			return 1
@@ -46,7 +46,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 	}
 	
 	override func tableView(tableView: UITableView!, sectionForSectionIndexTitle title: String!, atIndex index: Int) -> Int {
-		if collation {
+		if collation != nil {
 			return collation!.sectionForSectionIndexTitleAtIndex(index)
 		}
 		return index
@@ -57,7 +57,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 	}
 	
 	override func tableView(tableView: UITableView!, titleForHeaderInSection section: Int) -> String! {
-		if collation {
+		if collation != nil {
 			return collation!.sectionTitles[section] as? String
 		}
 		return nil
@@ -66,7 +66,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
     override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell? {
 		let CELL_ID = "Cell"
 		var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
-		if !cell {
+		if cell == nil {
 			cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
 			cell!.selectionStyle = .None
 			cell!.delegate = self
@@ -146,7 +146,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 	// #pragma mark -
 	
 	func indexButtonDidTap(sender: AnyObject!) {
-		if collation {
+		if collation != nil {
 			collation = nil
 		} else {
 			collation = UILocalizedIndexedCollation.currentCollation() as? UILocalizedIndexedCollation
