@@ -677,7 +677,7 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 
 - (CGFloat)sectionIndexWidth {
 	UITableView* tableView = [self tableViewInSuperviews];
-	if (tableView && tableView.dataSource) {
+	if (tableView && tableView.dataSource && [tableView.dataSource respondsToSelector:@selector(sectionIndexTitlesForTableView:)]) {
 		if ([tableView.dataSource sectionIndexTitlesForTableView:tableView]) {
 			return SE_SECTION_INDEX_WIDTH;
 		}
