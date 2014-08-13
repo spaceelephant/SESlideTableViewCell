@@ -222,6 +222,89 @@ static UIImage* SECreateImageWithColor(UIColor* color, CGSize size) {
 
 @end
 
+#pragma mark - SESlideIndicator
+
+#define INDICATOR_LINE_WIDTH ((CGFloat)2.0)
+#define INDICATOR_MERGIN ((CGFloat)2.0)
+#define INDICATOR_WIDTH (INDICATOR_MERGIN * 3 + INDICATOR_LINE_WIDTH * 4)
+#define INDICATOR_LINE_HEIGHT0 ((CGFloat)3.0)
+#define INDICATOR_LINE_HEIGHT1 ((CGFloat)7.0)
+#define INDICATOR_HEIGHT (INDICATOR_LINE_HEIGHT1)
+#define INDICATOR_OUT_MERGIN ((CGFloat)4.0)
+
+typedef NS_OPTIONS(NSUInteger, SESlideIndicatorSideOption) {
+	SESlideIndicatorSideOptionNone	= 0,
+	SESlideIndicatorSideOptionLeft	= (1 << 0),
+	SESlideIndicatorSideOptionRight	= (1 << 1),
+	SESlideIndicatorSideOptionLeftAndRight = (SESlideIndicatorSideOptionLeft|SESlideIndicatorSideOptionRight)
+};
+
+@interface SESlideIndicator : UIView
+
+@property (nonatomic) SESlideIndicatorSideOption sideOption;
+
+@end
+
+@implementation SESlideIndicator
+
+@synthesize sideOption = m_sideOption;
+
+- (instancetype)init {
+	self = [super initWithFrame:CGRectMake(0, 0, INDICATOR_WIDTH, INDICATOR_HEIGHT)];
+	if (self) {
+		self.backgroundColor = [UIColor clearColor];
+	}
+	return self;
+}
+
+- (void)addLinesAtCGContext:(CGContextRef)context line0X:(CGFloat)line0X line1X:(CGFloat)line1X {
+	CGPathRef line0 = CGPathCreateWithRoundedRect(CGRectMake(line0X, (INDICATOR_HEIGHT - INDICATOR_LINE_HEIGHT0) * 0.5f, INDICATOR_LINE_WIDTH, INDICATOR_LINE_HEIGHT0), INDICATOR_LINE_WIDTH * 0.5f, INDICATOR_LINE_WIDTH * 0.5f, NULL);
+	
+	CGPathRef line1 = CGPathCreateWithRoundedRect(CGRectMake(line1X, (INDICATOR_HEIGHT - INDICATOR_LINE_HEIGHT1) * 0.5f, INDICATOR_LINE_WIDTH, INDICATOR_LINE_HEIGHT1), INDICATOR_LINE_WIDTH * 0.5f, INDICATOR_LINE_WIDTH * 0.5f, NULL);
+	
+	
+	CGContextAddPath(context, line0);
+	CGContextAddPath(context, line1);
+
+	CGPathRelease(line0);
+	CGPathRelease(line1);
+}
+
+- (void)drawRect:(CGRect)rect {
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	
+	UIColor* color = [UIColor colorWithWhite:210/255.0 alpha:1.0];
+	CGContextSetFillColorWithColor(context, color.CGColor);
+	
+	switch (m_sideOption) {
+		case SESlideIndicatorSideOptionNone:
+			break;
+		case SESlideIndicatorSideOptionLeft:
+			[self addLinesAtCGContext:context line0X:INDICATOR_MERGIN * 3 + INDICATOR_LINE_WIDTH * 3 line1X:INDICATOR_MERGIN * 2 + INDICATOR_LINE_WIDTH * 2];
+			CGContextFillPath(context);
+			break;
+		case SESlideIndicatorSideOptionRight:
+			[self addLinesAtCGContext:context line0X:INDICATOR_MERGIN * 2 + INDICATOR_LINE_WIDTH * 2 line1X:INDICATOR_MERGIN * 3 + INDICATOR_LINE_WIDTH * 3];
+			CGContextFillPath(context);
+			break;
+		case SESlideIndicatorSideOptionLeftAndRight:
+			[self addLinesAtCGContext:context line0X:0 line1X:INDICATOR_MERGIN + INDICATOR_LINE_WIDTH];
+			[self addLinesAtCGContext:context line0X:INDICATOR_MERGIN * 3 + INDICATOR_LINE_WIDTH * 3 line1X:INDICATOR_MERGIN * 2 + INDICATOR_LINE_WIDTH * 2];
+			CGContextFillPath(context);
+			break;
+	}
+}
+
+- (void)setSideOption:(SESlideIndicatorSideOption)sideOption {
+	if (m_sideOption == sideOption) {
+		return;
+	}
+	m_sideOption = sideOption;
+	[self setNeedsDisplay];
+}
+
+@end
+
 #pragma mark - SESlideTableViewCell
 
 typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
@@ -242,6 +325,8 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 	SEButtonGroupView* m_rightButtonGroupView;
 	NSMutableArray* m_constraints;
 	
+	SESlideIndicator* m_indicator;
+	
 	uint32_t m_slideAnimationId;
 }
 
@@ -251,6 +336,8 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 
 @synthesize delegate = m_delegate;
 @synthesize slideState = m_slideState;
+@synthesize showsLeftSlideIndicator = m_showsLeftSlideIndicator;
+@synthesize showsRightSlideIndicator = m_showsRightSlideIndicator;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -261,6 +348,8 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 }
 
 - (void)setUp {
+	m_showsLeftSlideIndicator = YES;
+	m_showsRightSlideIndicator = YES;
 	m_constraints = [NSMutableArray array];
 	
 	m_panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
@@ -295,6 +384,28 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 	[self cleanUpSlideView];
 }
 
+#pragma mark - Public Properties
+
+- (void)setShowsLeftSlideIndicator:(BOOL)showsLeftSlideIndicator {
+	if (m_showsLeftSlideIndicator == showsLeftSlideIndicator) {
+		return;
+	}
+	[self willChangeValueForKey:@"showsLeftSlideIndicator"];
+	m_showsLeftSlideIndicator = showsLeftSlideIndicator;
+	[self updateSlideIndicatorVisibility];
+	[self didChangeValueForKey:@"showsLeftSlideIndicator"];
+}
+
+- (void)setShowsRightSlideIndicator:(BOOL)showsRightSlideIndicator {
+	if (m_showsRightSlideIndicator == showsRightSlideIndicator) {
+		return;
+	}
+	[self willChangeValueForKey:@"showsRightSlideIndicator"];
+	m_showsRightSlideIndicator = showsRightSlideIndicator;
+	[self updateSlideIndicatorVisibility];
+	[self didChangeValueForKey:@"showsRightSlideIndicator"];
+}
+
 #pragma mark - Public Interface
 
 - (void)addButton:(UIView*)button buttonWidth:(CGFloat)buttonWidth backgroundColor:(UIColor*)backgroundColor side:(SESlideTableViewCellSide)side {
@@ -313,6 +424,19 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 			[m_rightButtonGroupView addButtonView:buttonView];
 			break;
 	}
+	
+	// indicator
+	if (m_indicator == nil) {
+		SESlideIndicator* indicator = [SESlideIndicator new];
+		[indicator setTranslatesAutoresizingMaskIntoConstraints:NO];
+		[self addSubview:indicator];
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:indicator attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:INDICATOR_WIDTH]];
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:indicator attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:INDICATOR_HEIGHT]];
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:indicator attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-INDICATOR_OUT_MERGIN]];
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:indicator attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:-INDICATOR_OUT_MERGIN]];
+		m_indicator = indicator;
+	}
+	[self updateSlideIndicatorVisibility];
 }
 
 - (void)removeAllButtonsWithSide:(SESlideTableViewCellSide)side {
@@ -683,6 +807,19 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 		}
 	}
 	return 0;
+}
+
+- (void)updateSlideIndicatorVisibility {
+	if (m_indicator) {
+		SESlideIndicatorSideOption sides = SESlideIndicatorSideOptionNone;
+		if (m_showsRightSlideIndicator && [m_rightButtonGroupView buttonCount] > 0) {
+			sides |= SESlideStateOptionRight;
+		}
+		if (m_showsLeftSlideIndicator && [m_leftButtonGroupView buttonCount] > 0) {
+			sides |= SESlideStateOptionLeft;
+		}
+		m_indicator.sideOption = sides;
+	}
 }
 
 @end

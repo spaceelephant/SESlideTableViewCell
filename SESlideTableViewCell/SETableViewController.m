@@ -75,63 +75,125 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSString * const CELL_ID = @"Cell";
-	SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
-	if (!cell) {
-		cell = [[SESlideTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		cell.delegate = self;
-	}
-	[cell removeAllLeftButtons];
-	[cell removeAllRightButtons];
-	
-	cell.textLabel.text = [NSString stringWithFormat:@"Slide Cell for %d - %d", (int)indexPath.section, (int)indexPath.row];
-
 	switch (indexPath.row) {
-		case 0:
-			cell.textLabel.text = @"Cell with Right Buttons";
-			[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-			[cell addRightButtonWithText:@"World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-			break;
-		case 1:
-			cell.textLabel.text = @"Cell with Right Buttons and Disclosure Indicator";
-			[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-			[cell addRightButtonWithText:@"World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-			break;
-		case 2:
-			cell.textLabel.text = @"Cell with Right Buttons";
-			[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-			[cell addRightButtonWithText:@"World with Love" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-			break;
-		case 3:
-			cell.textLabel.text = @"Cell with three Right Buttons";
-			[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-			[cell addRightButtonWithText:@"World" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-			[cell addRightButtonWithText:@"Again" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:120.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-			break;
-		case 4:
-			cell.textLabel.text = @"Cell with a Right Image Button";
-			[cell addRightButtonWithImage:[UIImage imageNamed:@"image-cloud"] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-			break;
-		case 5:
-			cell.textLabel.text = @"Cell with Left Buttons";
-			[cell addLeftButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-			[cell addLeftButtonWithText:@"World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-			break;
-		case 6:
-			cell.textLabel.text = @"Cell with Left and Right Buttons";
-			[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-			[cell addRightButtonWithText:@"Right World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-			[cell addLeftButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-			[cell addLeftButtonWithText:@"Left World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-			break;
 		default:
-			break;
+		case 0: {
+			NSString* const CELL_ID = @"Cell0";
+			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
+			if (cell == nil) {
+				cell = [[SESlideTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
+				cell.selectionStyle = UITableViewCellSelectionStyleNone;
+				cell.delegate = self;
+
+				cell.textLabel.text = @"Cell with Right Buttons";
+				[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				[cell addRightButtonWithText:@"World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+			}
+			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
+			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
+			return cell;
+		}	break;
+		case 1: {
+			NSString* const CELL_ID = @"Cell1";
+			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
+			if (cell == nil) {
+				cell = [[SESlideTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
+				cell.selectionStyle = UITableViewCellSelectionStyleNone;
+				cell.delegate = self;
+				
+				cell.textLabel.text = @"Cell with Right Buttons and Disclosure Indicator";
+				[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				[cell addRightButtonWithText:@"World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+			}
+			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
+			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
+			return cell;
+		}	break;
+		case 2: {
+			NSString* const CELL_ID = @"Cell2";
+			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
+			if (cell == nil) {
+				cell = [[SESlideTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
+				cell.selectionStyle = UITableViewCellSelectionStyleNone;
+				cell.delegate = self;
+				
+				cell.textLabel.text = @"Cell with Right Buttons";
+				[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				[cell addRightButtonWithText:@"World with Love" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+			}
+			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
+			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
+			return cell;
+		}	break;
+		case 3: {
+			NSString* const CELL_ID = @"Cell3";
+			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
+			if (cell == nil) {
+				cell = [[SESlideTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
+				cell.selectionStyle = UITableViewCellSelectionStyleNone;
+				cell.delegate = self;
+				
+				cell.textLabel.text = @"Cell with three Right Buttons";
+				[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				[cell addRightButtonWithText:@"World" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				[cell addRightButtonWithText:@"Again" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:120.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+			}
+			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
+			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
+			return cell;
+		}	break;
+		case 4: {
+			NSString* const CELL_ID = @"Cell4";
+			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
+			if (cell == nil) {
+				cell = [[SESlideTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
+				cell.selectionStyle = UITableViewCellSelectionStyleNone;
+				cell.delegate = self;
+				
+				cell.textLabel.text = @"Cell with a Right Image Button";
+				[cell addRightButtonWithImage:[UIImage imageNamed:@"image-cloud"] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+			}
+			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
+			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
+			return cell;
+		}	break;
+		case 5: {
+			NSString* const CELL_ID = @"Cell5";
+			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
+			if (cell == nil) {
+				cell = [[SESlideTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
+				cell.selectionStyle = UITableViewCellSelectionStyleNone;
+				cell.delegate = self;
+				
+				cell.textLabel.text = @"Cell with Left Buttons";
+				[cell addLeftButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				[cell addLeftButtonWithText:@"World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+			}
+			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
+			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
+			return cell;
+		}	break;
+		case 6: {
+			NSString* const CELL_ID = @"Cell6";
+			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
+			if (cell == nil) {
+				cell = [[SESlideTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
+				cell.selectionStyle = UITableViewCellSelectionStyleNone;
+				cell.delegate = self;
+				
+				cell.textLabel.text = @"Cell with Left and Right Buttons";
+				[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				[cell addRightButtonWithText:@"Right World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				[cell addLeftButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				[cell addLeftButtonWithText:@"Left World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+			}
+			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
+			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
+			return cell;
+		}	break;
 	}
-	
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -161,11 +223,13 @@
 	switch (sender.selectedSegmentIndex) {
 	case 0: {
 		m_leftButtonDisabled = ! m_leftButtonDisabled;
+		[self.tableView reloadData];
 		UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Left Button" message:(m_leftButtonDisabled) ? @"Disabled": @"Enabled" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alertView show];
 	}	break;
 	case 1:
 		m_rightButtonDisabled = ! m_rightButtonDisabled;
+		[self.tableView reloadData];
 		UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Right Button" message:(m_leftButtonDisabled) ? @"Disabled": @"Enabled" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alertView show];
 		break;

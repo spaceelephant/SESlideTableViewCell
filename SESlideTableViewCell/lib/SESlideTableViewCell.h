@@ -58,6 +58,9 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSide) {
 /**
  Asks the delegate if the cell can be a slide-state.
  
+ The result of this function is not reflected to the slide indicators of the cell.
+ You should set "showsLeftSlideIndicator" or "showsRightSlideIndicator" property of SESlideTableViewCell manually.
+ 
  @return YES if the cell can be the state, otherwise NO.
  @param cell The cell that is making this request.
  @param slideState The state that the cell want to be.
@@ -76,6 +79,21 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSide) {
 
 @property (nonatomic, weak) id<SESlideTableViewCellDelegate> delegate;
 @property (nonatomic, readonly) SESlideTableViewCellSlideState slideState;
+/**
+ A Boolean value that indicates whether the cell displays a left slide indicator.
+ 
+ A slide indicator shows which way you can swipe the cell.
+ The default value is YES.
+ */
+@property (nonatomic) BOOL showsLeftSlideIndicator;
+
+/**
+ A Boolean value that indicates whether the cell displays a right slide indicator.
+ 
+ A slide indicator shows which way you can swipe the cell.
+ The default value is YES.
+ */
+@property (nonatomic) BOOL showsRightSlideIndicator;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 
