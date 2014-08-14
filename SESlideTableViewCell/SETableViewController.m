@@ -166,10 +166,11 @@
 				cell.selectionStyle = UITableViewCellSelectionStyleNone;
 				cell.delegate = self;
 				
-				cell.textLabel.text = @"Cell with Left Buttons";
+				cell.textLabel.text = @"Cell with Left and Right Buttons";
+				[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				[cell addRightButtonWithText:@"Right World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
 				[cell addLeftButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-				[cell addLeftButtonWithText:@"World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+				[cell addLeftButtonWithText:@"Left World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
 			}
 			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
 			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
@@ -183,11 +184,10 @@
 				cell.selectionStyle = UITableViewCellSelectionStyleNone;
 				cell.delegate = self;
 				
-				cell.textLabel.text = @"Cell with Left and Right Buttons";
-				[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-				[cell addRightButtonWithText:@"Right World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				cell.textLabel.text = @"Cell with Left Buttons";
 				[cell addLeftButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-				[cell addLeftButtonWithText:@"Left World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				[cell addLeftButtonWithText:@"World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			}
 			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
 			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
