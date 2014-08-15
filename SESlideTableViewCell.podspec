@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version      = "0.1.4"
   s.summary      = "A subclass of UITableViewCell that shows buttons with swiping it."
   s.homepage     = "https://github.com/spaceelephant/SESlideTableViewCell"
-  s.screenshots  = "http://i.imgur.com/NUJ9Hts.gif", "http://i.imgur.com/ic1fwxp.gif"
+  s.screenshots  = "http://i.imgur.com/395rqmq.gif"
   s.license      = "MIT"
   s.author       = { "Junji Tago" => "junji.tago@space-elephant.com" }
 

@@ -1,13 +1,13 @@
 SESlideTableViewCell
 ====================
 
-<p align="center"><img src="http://i.imgur.com/NUJ9Hts.gif"/></p>
-<p align="center"><img src="http://i.imgur.com/ic1fwxp.gif"/></p>
+<p align="center"><img src="http://i.imgur.com/395rqmq.gif"/></p>
 
 A subclass of UITableViewCell that shows buttons with swiping it.
 
 ## Features
 * Portable. Made up with only one header and one source file.
+* Indicator that shows which way you can swipe.
 * Ready for iOS 8.
 * Supports Swift language.
 
@@ -77,3 +77,9 @@ func slideTableViewCell(cell: SESlideTableViewCell!, didTriggerRightButton butto
 # License
 
 MIT license.
+
+# Limitations
+
+The animation of the contents in the cell stops while buttons are displayed.
+This comes from using snapshot to display the existing content in the cell.
+
