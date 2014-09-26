@@ -42,7 +42,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 	}
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 7
+		return 8
 	}
 	
 	override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
@@ -171,6 +171,25 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 				cell!.addLeftButtonWithText("Hello", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
 				cell!.addLeftButtonWithText("World!!", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
 				cell!.accessoryType = .DisclosureIndicator
+			}
+			cell!.showsLeftSlideIndicator = !leftButtonDisabled
+			cell!.showsRightSlideIndicator = !rightButtonDisabled
+			return cell!
+		case 7:
+			let CELL_ID = "Cell7"
+			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
+			if cell == nil {
+				cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
+				cell!.selectionStyle = .None
+				cell!.delegate = self
+				let bgColor = UIColor(hue: 210/360.0, saturation: 0.1, brightness: 0.9, alpha: 1.0)
+				cell!.backgroundColor = bgColor
+				cell!.slideBackgroundColor = bgColor
+				cell!.indicatorColor = UIColor(hue: 12/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0)
+				
+				cell!.textLabel!.text = "Cell with Background Color"
+				cell!.addRightButtonWithText("Hello", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButtonWithText("World!!", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 180/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
 			}
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
