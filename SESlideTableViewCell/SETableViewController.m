@@ -50,7 +50,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 7;
+	return 8;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
@@ -193,6 +193,25 @@
 			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
 			return cell;
 		}	break;
+		case 7: {
+			NSString* const CELL_ID = @"Cell7";
+			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
+			if (cell == nil) {
+				cell = [[SESlideTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
+				cell.selectionStyle = UITableViewCellSelectionStyleNone;
+				cell.delegate = self;
+				UIColor* bgColor = [UIColor colorWithHue:210.0/360 saturation:0.1 brightness:0.9 alpha:1.0];
+				cell.backgroundColor = bgColor;
+				cell.slideBackgroundColor = bgColor;
+				
+				cell.textLabel.text = @"Cell with Background Color";
+				[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				[cell addRightButtonWithText:@"World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+			}
+			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
+			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
+			return cell;
+		}
 	}
 }
 

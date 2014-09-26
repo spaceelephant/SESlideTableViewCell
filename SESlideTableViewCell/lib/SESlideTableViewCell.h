@@ -95,6 +95,13 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSide) {
  */
 @property (nonatomic) BOOL showsRightSlideIndicator;
 
+/**
+ A background color for the cell when it slides.
+ 
+ If the background color of the cell is transparent, this color will be displayed as its background.
+ */
+@property (nonatomic) UIColor* slideBackgroundColor;
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 
 /**

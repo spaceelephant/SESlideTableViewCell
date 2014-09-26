@@ -31,19 +31,32 @@ static UIImage* SECreateImageWithColor(UIColor* color, CGSize size) {
 
 @interface SESlideView : UIView
 
+@property (nonatomic) UIColor* color;
+
+@end
+
+@interface SESlideView () {
+	UIImageView* m_imageView;
+}
+
 @end
 
 @implementation SESlideView
 
+@synthesize color = m_color;
+
 - (instancetype)initWithFrame:(CGRect)frame {
 	self = [super initWithFrame:frame];
 	if (self) {
+		m_color = [UIColor whiteColor];
+		
 		self.clipsToBounds = YES;
-		UIImage* image = SECreateImageWithColor([UIColor whiteColor], CGSizeMake(1, 1));
+		UIImage* image = SECreateImageWithColor(m_color, CGSizeMake(1, 1));
 		UIImageView* imageView = [[UIImageView alloc] initWithImage:image];
 		[imageView setTranslatesAutoresizingMaskIntoConstraints:NO];
 		imageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
 		[self addSubview:imageView];
+		m_imageView = imageView;
 		
 		NSArray* constraints = @[
 			// H:|[imageView(==self)]
@@ -56,6 +69,12 @@ static UIImage* SECreateImageWithColor(UIColor* color, CGSize size) {
 		[self addConstraints:constraints];
 	}
 	return self;
+}
+
+- (void)setColor:(UIColor *)color {
+	m_color = color;
+	UIImage* image = SECreateImageWithColor(m_color, CGSizeMake(1, 1));
+	m_imageView.image = image;
 }
 
 @end
@@ -404,6 +423,14 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 	m_showsRightSlideIndicator = showsRightSlideIndicator;
 	[self updateSlideIndicatorVisibility];
 	[self didChangeValueForKey:@"showsRightSlideIndicator"];
+}
+
+- (void)setSlideBackgroundColor:(UIColor *)slideBackgroundColor {
+	m_slideView.color = slideBackgroundColor;
+}
+
+- (UIColor*)slideBackgroundColor {
+	return m_slideView.color;
 }
 
 #pragma mark - Public Interface
