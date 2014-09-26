@@ -345,6 +345,7 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 	NSMutableArray* m_constraints;
 	
 	SESlideIndicator* m_indicator;
+	NSLayoutConstraint* m_indicatorRightConstraint;
 	
 	uint32_t m_slideAnimationId;
 }
@@ -401,6 +402,10 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 	m_slideState = SESlideTableViewCellSlideStateCenter;
 	m_preparedSlideStates = SESlideStateOptionNone;
 	[self cleanUpSlideView];
+	
+	if (m_indicatorRightConstraint) {
+		m_indicatorRightConstraint.constant = -INDICATOR_OUT_MERGIN - self.sectionIndexWidth;
+	}
 }
 
 #pragma mark - Public Properties
@@ -457,11 +462,17 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 		SESlideIndicator* indicator = [SESlideIndicator new];
 		[indicator setTranslatesAutoresizingMaskIntoConstraints:NO];
 		[self addSubview:indicator];
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:indicator attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:INDICATOR_WIDTH]];
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:indicator attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:INDICATOR_HEIGHT]];
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:indicator attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-INDICATOR_OUT_MERGIN]];
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:indicator attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:-INDICATOR_OUT_MERGIN]];
+		NSLayoutConstraint* widthConstraint = [NSLayoutConstraint constraintWithItem:indicator attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:INDICATOR_WIDTH];
+		NSLayoutConstraint* heightConstraint = [NSLayoutConstraint constraintWithItem:indicator attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:INDICATOR_HEIGHT];
+		NSLayoutConstraint* bottomConstraint = [NSLayoutConstraint constraintWithItem:indicator attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-INDICATOR_OUT_MERGIN];
+		NSLayoutConstraint* rightConstraint = [NSLayoutConstraint constraintWithItem:indicator attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:-INDICATOR_OUT_MERGIN - self.sectionIndexWidth];
+		
+		[self addConstraint:widthConstraint];
+		[self addConstraint:heightConstraint];
+		[self addConstraint:bottomConstraint];
+		[self addConstraint:rightConstraint];
 		m_indicator = indicator;
+		m_indicatorRightConstraint = rightConstraint;
 	}
 	[self updateSlideIndicatorVisibility];
 }
@@ -627,6 +638,16 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 	SEButtonView* buttonView = (SEButtonView*)gesture.view;
 	if ([m_delegate respondsToSelector:@selector(slideTableViewCell:didTriggerRightButton:)]) {
 		[m_delegate slideTableViewCell:self didTriggerRightButton:buttonView.buttonIndex];
+	}
+}
+
+#pragma mark - UIView
+
+- (void)didMoveToSuperview {
+	[super didMoveToSuperview];
+	
+	if (m_indicatorRightConstraint) {
+		m_indicatorRightConstraint.constant = -INDICATOR_OUT_MERGIN - self.sectionIndexWidth;
 	}
 }
 
