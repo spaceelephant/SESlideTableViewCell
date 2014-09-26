@@ -203,6 +203,7 @@
 				UIColor* bgColor = [UIColor colorWithHue:210.0/360 saturation:0.1 brightness:0.9 alpha:1.0];
 				cell.backgroundColor = bgColor;
 				cell.slideBackgroundColor = bgColor;
+				cell.indicatorColor = [UIColor colorWithHue:12/360.0f saturation:0.8f brightness:0.9f alpha:1.0f];
 				
 				cell.textLabel.text = @"Cell with Background Color";
 				[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];

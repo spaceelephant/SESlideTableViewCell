@@ -261,17 +261,20 @@ typedef NS_OPTIONS(NSUInteger, SESlideIndicatorSideOption) {
 @interface SESlideIndicator : UIView
 
 @property (nonatomic) SESlideIndicatorSideOption sideOption;
+@property (nonatomic) UIColor* color;
 
 @end
 
 @implementation SESlideIndicator
 
 @synthesize sideOption = m_sideOption;
+@synthesize color = m_color;
 
 - (instancetype)init {
 	self = [super initWithFrame:CGRectMake(0, 0, INDICATOR_WIDTH, INDICATOR_HEIGHT)];
 	if (self) {
 		self.backgroundColor = [UIColor clearColor];
+		m_color = [UIColor colorWithWhite:210/255.0f alpha:1.0f];
 	}
 	return self;
 }
@@ -292,8 +295,7 @@ typedef NS_OPTIONS(NSUInteger, SESlideIndicatorSideOption) {
 - (void)drawRect:(CGRect)rect {
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	
-	UIColor* color = [UIColor colorWithWhite:210/255.0 alpha:1.0];
-	CGContextSetFillColorWithColor(context, color.CGColor);
+	CGContextSetFillColorWithColor(context, m_color.CGColor);
 	
 	switch (m_sideOption) {
 		case SESlideIndicatorSideOptionNone:
@@ -319,6 +321,11 @@ typedef NS_OPTIONS(NSUInteger, SESlideIndicatorSideOption) {
 		return;
 	}
 	m_sideOption = sideOption;
+	[self setNeedsDisplay];
+}
+
+- (void)setColor:(UIColor *)color {
+	m_color = color;
 	[self setNeedsDisplay];
 }
 
@@ -358,6 +365,7 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 @synthesize slideState = m_slideState;
 @synthesize showsLeftSlideIndicator = m_showsLeftSlideIndicator;
 @synthesize showsRightSlideIndicator = m_showsRightSlideIndicator;
+@synthesize indicatorColor = m_indicatorColor;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -370,6 +378,7 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 - (void)setUp {
 	m_showsLeftSlideIndicator = YES;
 	m_showsRightSlideIndicator = YES;
+	m_indicatorColor = [UIColor colorWithWhite:210/255.0f alpha:1.0f];
 	m_constraints = [NSMutableArray array];
 	
 	m_panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
@@ -430,6 +439,13 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 	[self didChangeValueForKey:@"showsRightSlideIndicator"];
 }
 
+- (void)setIndicatorColor:(UIColor *)indicatorColor {
+	m_indicatorColor = indicatorColor;
+	if (m_indicator) {
+		m_indicator.color = indicatorColor;
+	}
+}
+
 - (void)setSlideBackgroundColor:(UIColor *)slideBackgroundColor {
 	m_slideView.color = slideBackgroundColor;
 }
@@ -460,6 +476,7 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 	// indicator
 	if (m_indicator == nil) {
 		SESlideIndicator* indicator = [SESlideIndicator new];
+		indicator.color = m_indicatorColor;
 		[indicator setTranslatesAutoresizingMaskIntoConstraints:NO];
 		[self addSubview:indicator];
 		NSLayoutConstraint* widthConstraint = [NSLayoutConstraint constraintWithItem:indicator attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:INDICATOR_WIDTH];
