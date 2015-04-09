@@ -206,7 +206,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
     }
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let cell = tableView.cellForRowAtIndexPath(indexPath) as SESlideTableViewCell!
+		let cell = tableView.cellForRowAtIndexPath(indexPath) as! SESlideTableViewCell!
 		switch cell.slideState {
 		case .Center:
 			cell.setSlideState(.Right, animated:true)

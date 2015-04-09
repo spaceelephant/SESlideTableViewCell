@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C9321D871A3B1B650017EB1E /* SESwiftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9505EA5197DCC3100683A6B /* SESwiftTableViewController.swift */; };
 		C9505E80197DCB9400683A6B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9505E7F197DCB9400683A6B /* main.m */; };
 		C9505E83197DCB9400683A6B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9505E82197DCB9400683A6B /* AppDelegate.m */; };
 		C9505E89197DCB9400683A6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9505E87197DCB9400683A6B /* Main.storyboard */; };
 		C9505E8B197DCB9400683A6B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9505E8A197DCB9400683A6B /* Images.xcassets */; };
 		C9505E97197DCB9400683A6B /* SESlideTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9505E96197DCB9400683A6B /* SESlideTableViewCellTests.m */; };
 		C9505EA3197DCC1400683A6B /* SESlideTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9505EA2197DCC1400683A6B /* SESlideTableViewCell.m */; };
-		C9505EA9197DCC3100683A6B /* SESwiftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9505EA5197DCC3100683A6B /* SESwiftTableViewController.swift */; };
 		C9505EAA197DCC3100683A6B /* SETableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9505EA7197DCC3100683A6B /* SETableViewController.m */; };
 		C9505EAC197DCC5F00683A6B /* image-cloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9505EAB197DCC5F00683A6B /* image-cloud@2x.png */; };
 /* End PBXBuildFile section */
@@ -239,7 +239,7 @@
 			files = (
 				C9505E83197DCB9400683A6B /* AppDelegate.m in Sources */,
 				C9505EA3197DCC1400683A6B /* SESlideTableViewCell.m in Sources */,
-				C9505EA9197DCC3100683A6B /* SESwiftTableViewController.swift in Sources */,
+				C9321D871A3B1B650017EB1E /* SESwiftTableViewController.swift in Sources */,
 				C9505EAA197DCC3100683A6B /* SETableViewController.m in Sources */,
 				C9505E80197DCB9400683A6B /* main.m in Sources */,
 			);
