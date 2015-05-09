@@ -16,6 +16,7 @@
 		C9505EA3197DCC1400683A6B /* SESlideTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9505EA2197DCC1400683A6B /* SESlideTableViewCell.m */; };
 		C9505EAA197DCC3100683A6B /* SETableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9505EA7197DCC3100683A6B /* SETableViewController.m */; };
 		C9505EAC197DCC5F00683A6B /* image-cloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9505EAB197DCC5F00683A6B /* image-cloud@2x.png */; };
+		C9E7A03C1AFE1A820008D81F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E7A03B1AFE1A820008D81F /* LaunchScreen.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		C9505EA6197DCC3100683A6B /* SETableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SETableViewController.h; sourceTree = "<group>"; };
 		C9505EA7197DCC3100683A6B /* SETableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SETableViewController.m; sourceTree = "<group>"; };
 		C9505EAB197DCC5F00683A6B /* image-cloud@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image-cloud@2x.png"; sourceTree = "<group>"; };
+		C9E7A03B1AFE1A820008D81F /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			children = (
 				C9505E7E197DCB9400683A6B /* Info.plist */,
 				C9505E7F197DCB9400683A6B /* main.m */,
+				C9E7A03B1AFE1A820008D81F /* LaunchScreen.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9E7A03C1AFE1A820008D81F /* LaunchScreen.xib in Resources */,
 				C9505EAC197DCC5F00683A6B /* image-cloud@2x.png in Resources */,
 				C9505E89197DCB9400683A6B /* Main.storyboard in Resources */,
 				C9505E8B197DCB9400683A6B /* Images.xcassets in Resources */,
