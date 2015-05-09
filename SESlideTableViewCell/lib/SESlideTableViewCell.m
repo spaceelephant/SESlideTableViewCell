@@ -921,10 +921,14 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 - (void)addButtonWithImage:(UIImage*)image backgroundColor:(UIColor*)backgroundColor side:(SESlideTableViewCellSide)side {
 	UIImageView* imageView = [[UIImageView alloc] initWithImage:image];
 	UIView* view = [[UIView alloc] initWithFrame:imageView.frame];
+#if 1
+	imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
+#else
 	[imageView setTranslatesAutoresizingMaskIntoConstraints:NO];
-	[view addSubview:imageView];
 	[view addConstraint:[NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
 	[view addConstraint:[NSLayoutConstraint constraintWithItem:imageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+#endif
+	[view addSubview:imageView];
 	[self addButton:view buttonWidth:image.size.width + BUTTON_MARGIN backgroundColor:backgroundColor side:side];
 }
 
