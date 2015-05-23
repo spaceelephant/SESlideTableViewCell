@@ -367,6 +367,13 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 @synthesize showsRightSlideIndicator = m_showsRightSlideIndicator;
 @synthesize indicatorColor = m_indicatorColor;
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder{
+    if (self = [super initWithCoder:aDecoder]) {
+        [self setUp];
+    }
+    return self;
+}
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
