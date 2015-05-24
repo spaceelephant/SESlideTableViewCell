@@ -83,3 +83,7 @@ MIT license.
 The animation of the contents in the cell stops while buttons are displayed.
 This comes from using snapshot to display the existing content in the cell.
 
+# Aknowledgement
+
+Thank you for your contribution.
+- @ihomam

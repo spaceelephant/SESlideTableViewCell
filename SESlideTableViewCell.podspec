@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SESlideTableViewCell"
-  s.version      = "0.2.2"
+  s.version      = "0.2.3"
   s.summary      = "A subclass of UITableViewCell that shows buttons with swiping it."
   s.homepage     = "https://github.com/spaceelephant/SESlideTableViewCell"
   s.screenshots  = "http://i.imgur.com/395rqmq.gif"
