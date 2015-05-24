@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, "7.0"
 
-  s.source       = { :git => "https://github.com/spaceelephant/SESlideTableViewCell.git", :tag => "0.2.2" }
+  s.source       = { :git => "https://github.com/spaceelephant/SESlideTableViewCell.git", :tag => "0.2.3" }
   s.source_files  = "SESlideTableViewCell/lib"
   s.public_header_files = "SESlideTableViewCell/lib/*.h"
   s.ios.deployment_target = '7.0'
