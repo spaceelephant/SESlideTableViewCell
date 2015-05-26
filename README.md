@@ -86,4 +86,4 @@ This comes from using snapshot to display the existing content in the cell.
 # Aknowledgement
 
 Thank you for your contribution.
-- @ihomam
+- [@ihomam](https://github.com/ihomam)
