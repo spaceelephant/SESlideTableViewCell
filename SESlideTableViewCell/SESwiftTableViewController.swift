@@ -52,13 +52,13 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 		return index
 	}
 	
-	override func sectionIndexTitlesForTableView(tableView: UITableView) -> [AnyObject]! {
+	override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
 		return collation?.sectionIndexTitles
 	}
 	
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		if collation != nil {
-			return collation!.sectionTitles[section] as? String
+			return collation!.sectionTitles[section]
 		}
 		return nil
 	}
@@ -219,12 +219,12 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 	
 	func slideTableViewCell(cell: SESlideTableViewCell!, didTriggerLeftButton buttonIndex: NSInteger) {
 		let indexPath = tableView.indexPathForCell(cell)
-		println("left button \(buttonIndex) tapped in cell \(indexPath?.section) - \(indexPath?.row)")
+		print("left button \(buttonIndex) tapped in cell \(indexPath?.section) - \(indexPath?.row)")
 	}
 	
 	func slideTableViewCell(cell: SESlideTableViewCell!, didTriggerRightButton buttonIndex: NSInteger) {
 		let indexPath = tableView.indexPathForCell(cell)
-		println("right button \(buttonIndex) tapped in cell \(indexPath?.section) - \(indexPath?.row)")
+		print("right button \(buttonIndex) tapped in cell \(indexPath?.section) - \(indexPath?.row)")
 	}
 	
 	func slideTableViewCell(cell: SESlideTableViewCell!, canSlideToState slideState: SESlideTableViewCellSlideState) -> Bool {
@@ -245,7 +245,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 		if collation != nil {
 			collation = nil
 		} else {
-			collation = UILocalizedIndexedCollation.currentCollation() as? UILocalizedIndexedCollation
+			collation = UILocalizedIndexedCollation.currentCollation()
 		}
 		tableView.reloadData()
 	}
