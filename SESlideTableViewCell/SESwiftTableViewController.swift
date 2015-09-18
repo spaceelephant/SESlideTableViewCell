@@ -8,11 +8,26 @@
 
 import UIKit
 
+enum CellIndex : Int {
+	case RightButtons
+	case RightButtonsAndDisclosureIndicator
+	case RightLongButtons
+	case ThreeRightButtons
+	case RightImageButton
+	case LeftRightButtons
+	case LeftButtons
+	case BackgroundColor
+	case ContentUpdate
+	
+	case Count
+}
+
 class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDelegate {
 	
 	var collation: UILocalizedIndexedCollation?
 	var rightButtonDisabled: Bool = false
 	var leftButtonDisabled: Bool = false
+	var value: Int = 0
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +57,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 	}
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 8
+		return CellIndex.Count.rawValue
 	}
 	
 	override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
@@ -65,8 +80,9 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 	
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
-		switch indexPath.row {
-		case 0:
+		let cellIndex = CellIndex(rawValue: indexPath.row)
+		switch cellIndex! {
+		case .RightButtons:
 			let CELL_ID = "Cell0"
 			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
@@ -81,7 +97,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case 1:
+		case .RightButtonsAndDisclosureIndicator:
 			let CELL_ID = "Cell1"
 			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
@@ -97,7 +113,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case 2:
+		case .RightLongButtons:
 			let CELL_ID = "Cell2"
 			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
@@ -112,7 +128,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case 3:
+		case .ThreeRightButtons:
 			let CELL_ID = "Cell3"
 			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
@@ -128,7 +144,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case 4:
+		case .RightImageButton:
 			let CELL_ID = "Cell4"
 			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
@@ -142,7 +158,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case 5:
+		case .LeftRightButtons:
 			let CELL_ID = "Cell5"
 			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
@@ -159,7 +175,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case 6:
+		case .LeftButtons:
 			let CELL_ID = "Cell6"
 			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
@@ -175,7 +191,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case 7:
+		case .BackgroundColor:
 			let CELL_ID = "Cell7"
 			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
@@ -191,6 +207,21 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 				cell!.addRightButtonWithText("Hello", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
 				cell!.addRightButtonWithText("World!!", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 180/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
 			}
+			cell!.showsLeftSlideIndicator = !leftButtonDisabled
+			cell!.showsRightSlideIndicator = !rightButtonDisabled
+			return cell!
+		case .ContentUpdate:
+			let CELL_ID = "Cell8"
+			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
+			if cell == nil {
+				cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
+				cell!.selectionStyle = .None
+				cell!.delegate = self
+				cell!.addRightButtonWithText("-", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButtonWithText("+", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+			}
+			configureCell(cell, atIndex: indexPath.row)
+			
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
@@ -225,6 +256,18 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 	func slideTableViewCell(cell: SESlideTableViewCell!, didTriggerRightButton buttonIndex: NSInteger) {
 		let indexPath = tableView.indexPathForCell(cell)
 		print("right button \(buttonIndex) tapped in cell \(indexPath?.section) - \(indexPath?.row)")
+		if indexPath?.row == CellIndex.ContentUpdate.rawValue {
+			switch buttonIndex {
+			case 0:
+				value--
+			case 1:
+				value++
+			default:
+				break
+			}
+			self.configureCell(cell, atIndex: indexPath!.row)
+			cell.updateContentViewSnapshot()
+		}
 	}
 	
 	func slideTableViewCell(cell: SESlideTableViewCell!, canSlideToState slideState: SESlideTableViewCellSlideState) -> Bool {
@@ -239,6 +282,11 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 		return true
 	}
 	
+	func configureCell(cell: SESlideTableViewCell!, atIndex index:Int) {
+		if index == CellIndex.ContentUpdate.rawValue {
+			cell.textLabel?.text = "Cell with value \(value)"
+		}
+	}
 	// #pragma mark -
 	
 	func indexButtonDidTap(sender: AnyObject!) {

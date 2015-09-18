@@ -10,10 +10,25 @@
 
 #import "SESlideTableViewCell.h"
 
+enum {
+	CellIndexRightButtons,
+	CellIndexRightButtonsAndDisclosureIndicator,
+	CellIndexRightLongButtons,
+	CellIndexThreeRightButtons,
+	CellIndexRightImageButton,
+	CellIndexLeftRightButtons,
+	CellIndexLeftButtons,
+	CellIndexBackgroundColor,
+	CellIndexContentUpdate,
+	
+	CellIndexCount,
+};
+
 @interface SETableViewController () <SESlideTableViewCellDelegate> {
 	UILocalizedIndexedCollation* m_collation;
 	BOOL m_rightButtonDisabled;
 	BOOL m_leftButtonDisabled;
+	int m_value;
 }
 
 @end
@@ -50,7 +65,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 8;
+	return CellIndexCount;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
@@ -77,7 +92,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	switch (indexPath.row) {
 		default:
-		case 0: {
+		case CellIndexRightButtons: {
 			NSString* const CELL_ID = @"Cell0";
 			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
 			if (cell == nil) {
@@ -93,7 +108,7 @@
 			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
 			return cell;
 		}	break;
-		case 1: {
+		case CellIndexRightButtonsAndDisclosureIndicator: {
 			NSString* const CELL_ID = @"Cell1";
 			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
 			if (cell == nil) {
@@ -110,7 +125,7 @@
 			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
 			return cell;
 		}	break;
-		case 2: {
+		case CellIndexRightLongButtons: {
 			NSString* const CELL_ID = @"Cell2";
 			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
 			if (cell == nil) {
@@ -126,7 +141,7 @@
 			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
 			return cell;
 		}	break;
-		case 3: {
+		case CellIndexThreeRightButtons: {
 			NSString* const CELL_ID = @"Cell3";
 			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
 			if (cell == nil) {
@@ -143,7 +158,7 @@
 			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
 			return cell;
 		}	break;
-		case 4: {
+		case CellIndexRightImageButton: {
 			NSString* const CELL_ID = @"Cell4";
 			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
 			if (cell == nil) {
@@ -158,7 +173,7 @@
 			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
 			return cell;
 		}	break;
-		case 5: {
+		case CellIndexLeftRightButtons: {
 			NSString* const CELL_ID = @"Cell5";
 			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
 			if (cell == nil) {
@@ -176,7 +191,7 @@
 			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
 			return cell;
 		}	break;
-		case 6: {
+		case CellIndexLeftButtons: {
 			NSString* const CELL_ID = @"Cell6";
 			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
 			if (cell == nil) {
@@ -193,7 +208,7 @@
 			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
 			return cell;
 		}	break;
-		case 7: {
+		case CellIndexBackgroundColor: {
 			NSString* const CELL_ID = @"Cell7";
 			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
 			if (cell == nil) {
@@ -209,6 +224,24 @@
 				[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
 				[cell addRightButtonWithText:@"World!!" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
 			}
+			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
+			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
+			return cell;
+		}
+		case CellIndexContentUpdate: {
+			NSString* const CELL_ID = @"Cell8";
+			
+			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
+			if (cell == nil) {
+				cell = [[SESlideTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
+				cell.selectionStyle = UITableViewCellSelectionStyleNone;
+				cell.delegate = self;
+				
+				[cell addRightButtonWithText:@"-" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				[cell addRightButtonWithText:@"+" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+			}
+			[self configureCell:cell atIndex:CellIndexContentUpdate];
+
 			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
 			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
 			return cell;
@@ -256,6 +289,12 @@
 	}
 }
 
+- (void)configureCell:(UITableViewCell*)cell atIndex:(NSUInteger)index {
+	if (index == CellIndexContentUpdate) {
+		cell.textLabel.text = [NSString stringWithFormat:@"Cell with value %d", m_value];
+	}
+}
+
 #pragma mark - 
 
 - (void)slideTableViewCell:(SESlideTableViewCell*)cell didTriggerLeftButton:(NSInteger)buttonIndex {
@@ -264,6 +303,16 @@
 
 - (void)slideTableViewCell:(SESlideTableViewCell*)cell didTriggerRightButton:(NSInteger)buttonIndex {
 	NSLog(@"right button triggered:%d", (int)buttonIndex);
+	NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
+	if (indexPath.row == CellIndexContentUpdate) {
+		if (buttonIndex == 0) {
+			m_value--;
+		} else {
+			m_value++;
+		}
+		[self configureCell:cell atIndex:CellIndexContentUpdate];
+		[cell updateContentViewSnapshot];
+	}
 }
 
 - (BOOL)slideTableViewCell:(SESlideTableViewCell*)cell canSlideToState:(SESlideTableViewCellSlideState)slideState {

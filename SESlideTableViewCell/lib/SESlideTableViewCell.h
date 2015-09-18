@@ -112,7 +112,7 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSide) {
 /**
  Adds a button to the cell.
  
- the button view is stretched to fit the height of the cell and the width of the button.
+ The button view is stretched to fit the height of the cell and the width of the button.
  
  @param button A view that is shown as a button.
  @param buttonWidth The width of the button
@@ -135,6 +135,13 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSide) {
  @param animated YES if the state change is happened with animation, otherwise NO.
  */
 - (void)setSlideState:(SESlideTableViewCellSlideState)slideState animated:(BOOL)animated;
+
+/**
+ Update snapshot of the content view.
+ 
+ Call this function when the content of the cell is updated while a button is shown.
+ */
+- (void)updateContentViewSnapshot;
 
 @end
 

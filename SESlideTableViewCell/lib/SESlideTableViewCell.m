@@ -573,6 +573,22 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 	}
 }
 
+- (void)updateContentViewSnapshot {
+	if (m_snapshotView == nil) {
+		return;
+	}
+	
+	// take snapshot with hidding unnecessary content
+	m_slideView.hidden = YES;
+	UIView* newSnapshot = [self snapshotViewAfterScreenUpdates:YES];
+	m_slideView.hidden = NO;
+	
+	// replace snapshotview
+	[m_snapshotView removeFromSuperview];
+	m_snapshotView = newSnapshot;
+	[m_snapshotContainerView addSubview:m_snapshotView];
+}
+
 #pragma mark -
 
 - (void)handlePanGesture:(UIPanGestureRecognizer*)gesture {
