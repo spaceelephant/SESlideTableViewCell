@@ -288,6 +288,12 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 		}
 	}
 	
+	func slideTableViewCell(cell: SESlideTableViewCell!, wilShowButtonsOfSide side: SESlideTableViewCellSide) {
+		if let indexPath = tableView.indexPathForCell(cell) {
+			print("cell at \(indexPath.section) - \(indexPath.row) will show buttons of side \(side.rawValue)")
+		}
+	}
+	
 	func configureCell(cell: SESlideTableViewCell!, atIndex index:Int) {
 		if index == CellIndex.ContentUpdate.rawValue {
 			cell.textLabel?.text = "Cell with value \(value)"

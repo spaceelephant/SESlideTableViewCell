@@ -750,6 +750,9 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 	if (m_preparedSlideStates & SESlideStateOptionLeft) {
 		return;
 	}
+	if (m_delegate && [m_delegate respondsToSelector:@selector(slideTableViewCell:wilShowButtonsOfSide:)]) {
+		[m_delegate slideTableViewCell:self wilShowButtonsOfSide:SESlideTableViewCellSideLeft];
+	}
 	m_preparedSlideStates |= SESlideStateOptionLeft;
 	if (!m_snapshotContainerView) {
 		UITableViewCellSelectionStyle presevedSelectionStyle = self.selectionStyle;
@@ -784,6 +787,9 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 - (void)prepareToSlideRight {
 	if (m_preparedSlideStates & SESlideStateOptionRight) {
 		return;
+	}
+	if (m_delegate && [m_delegate respondsToSelector:@selector(slideTableViewCell:wilShowButtonsOfSide:)]) {
+		[m_delegate slideTableViewCell:self wilShowButtonsOfSide:SESlideTableViewCellSideRight];
 	}
 	m_preparedSlideStates |= SESlideStateOptionRight;
 	if (!m_snapshotContainerView) {

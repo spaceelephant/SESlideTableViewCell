@@ -73,6 +73,13 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSide) {
  @param slideState The slide state which the cell became.
  */
 - (void)slideTableViewCell:(SESlideTableViewCell*)cell didSlideToState:(SESlideTableViewCellSlideState)slideState;
+/**
+ Tells the delegate that the cell will show buttons of the side.
+ 
+ @param cell The cell informing the delegate of the event.
+ @param side The side of the buttons which the cell will show.
+ */
+- (void)slideTableViewCell:(SESlideTableViewCell *)cell wilShowButtonsOfSide:(SESlideTableViewCellSide)side;
 @end
 
 /**

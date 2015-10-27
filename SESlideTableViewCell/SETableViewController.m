@@ -333,5 +333,11 @@ enum {
 	}
 }
 
+- (void)slideTableViewCell:(SESlideTableViewCell *)cell wilShowButtonsOfSide:(SESlideTableViewCellSide)side {
+	NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
+	if (indexPath) {
+		NSLog(@"cell at %d - %d will show buttons of side %d", (int)indexPath.section, (int)indexPath.row, (int)side);
+	}
+}
 
 @end
