@@ -282,6 +282,12 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 		return true
 	}
 	
+	func slideTableViewCell(cell: SESlideTableViewCell!, willSlideToState slideState: SESlideTableViewCellSlideState) {
+		if let indexPath = tableView.indexPathForCell(cell) {
+			print("cell at \(indexPath.section) - \(indexPath.row) will slide to state \(slideState.rawValue)")
+		}
+	}
+	
 	func slideTableViewCell(cell: SESlideTableViewCell!, didSlideToState slideState: SESlideTableViewCellSlideState) {
 		if let indexPath = tableView.indexPathForCell(cell) {
 			print("cell at \(indexPath.section) - \(indexPath.row) did slide to state \(slideState.rawValue)")

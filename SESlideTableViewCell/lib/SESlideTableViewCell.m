@@ -849,6 +849,10 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 - (void)animateToSlideState:(SESlideTableViewCellSlideState)slideState velocity:(CGFloat)velocity {
 	UIView* snapshotView = m_snapshotContainerView;
 	
+	if (m_delegate && [m_delegate respondsToSelector:@selector(slideTableViewCell:willSlideToState:)]) {
+		[m_delegate slideTableViewCell:self willSlideToState:slideState];
+	}
+	
 	CGFloat targetPositionX = [self originXForSlideState:slideState];
 	CGFloat currentPositionX = snapshotView.frame.origin.x;
 	CGFloat distance = targetPositionX - currentPositionX;

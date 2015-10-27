@@ -326,6 +326,13 @@ enum {
 	}
 }
 
+- (void)slideTableViewCell:(SESlideTableViewCell *)cell willSlideToState:(SESlideTableViewCellSlideState)slideState {
+	NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
+	if (indexPath) {
+		NSLog(@"cell at %d - %d will slide to state %d", (int)indexPath.section, (int)indexPath.row, (int)slideState);
+	}
+}
+
 - (void)slideTableViewCell:(SESlideTableViewCell *)cell didSlideToState:(SESlideTableViewCellSlideState)slideState {
 	NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
 	if (indexPath) {
