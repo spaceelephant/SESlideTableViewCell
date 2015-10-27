@@ -8,7 +8,7 @@ A subclass of UITableViewCell that shows buttons with swiping it.
 ## Features
 * Portable. Made up with only one header and one source file.
 * Indicator that shows which way you can swipe.
-* Ready for iOS 8.
+* Compatible with iOS 7 - 9.
 * Supports Swift language.
 
 ## Requirements
@@ -73,6 +73,11 @@ func slideTableViewCell(cell: SESlideTableViewCell!, didTriggerRightButton butto
 	println("right button \(buttonIndex) tapped in cell \(indexPath.section) - \(indexPath.row)")
 }
 ```
+
+# Documentation
+
+The reference manual is avaiable at:
+http://cocoadocs.org/docsets/SESlideTableViewCell/
 
 # License
 
