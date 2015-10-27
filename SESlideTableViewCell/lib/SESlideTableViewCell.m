@@ -867,6 +867,9 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 				m_preparedSlideStates = SESlideStateOptionNone;
 				[self cleanUpSlideView];
 			}
+			if (m_delegate && [m_delegate respondsToSelector:@selector(slideTableViewCell:didSlideToState:)]) {
+				[m_delegate slideTableViewCell:self didSlideToState:slideState];
+			}
 		}
 	}];
 }

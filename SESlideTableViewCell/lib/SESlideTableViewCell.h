@@ -66,6 +66,13 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSide) {
  @param slideState The state that the cell want to be.
  */
 - (BOOL)slideTableViewCell:(SESlideTableViewCell*)cell canSlideToState:(SESlideTableViewCellSlideState)slideState;
+/**
+ Tells the delegate that the slide state of the cell did change.
+ 
+ @param cell The cell informing the delegate of the event.
+ @param slideState The slide state which the cell became.
+ */
+- (void)slideTableViewCell:(SESlideTableViewCell*)cell didSlideToState:(SESlideTableViewCellSlideState)slideState;
 @end
 
 /**
