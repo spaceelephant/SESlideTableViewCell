@@ -190,6 +190,17 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSide) {
 - (void)addButtonWithText:(NSString*)text textColor:(UIColor*)textColor backgroundColor:(UIColor*)backgroundColor side:(SESlideTableViewCellSide)side;
 
 /**
+ Adds a text button. The width of the button is automatically set by its text length.
+ 
+ @param text A text of the button.
+ @param textColor A color of the text.
+ @param backgroundColor A color of background of the button.
+ @param	font A font of the text.
+ @param side A side where the button is added.
+ */
+- (void)addButtonWithText:(NSString*)text textColor:(UIColor*)textColor backgroundColor:(UIColor*)backgroundColor font:(UIFont*)font side:(SESlideTableViewCellSide)side;
+
+/**
  Adds an image button.
  
  The width of the button is automatically set by its image width.
@@ -211,6 +222,16 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSide) {
 - (void)addLeftButtonWithText:(NSString*)text textColor:(UIColor*)textColor backgroundColor:(UIColor*)backgroundColor;
 
 /**
+ Adds a text button to the left side.
+ 
+ @param text a text of the button.
+ @param textColor a color of the text of the button.
+ @param backgroundColor a color of the background of the button.
+ @param	font a font of the text.
+ */
+- (void)addLeftButtonWithText:(NSString*)text textColor:(UIColor*)textColor backgroundColor:(UIColor*)backgroundColor font:(UIFont*)font;
+
+/**
  Adds a text button to the right side.
  
  @param text a text of the button.
@@ -218,6 +239,16 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSide) {
  @param backgroundColor a color of the background of the button
  */
 - (void)addRightButtonWithText:(NSString*)text textColor:(UIColor*)textColor backgroundColor:(UIColor*)backgroundColor;
+
+/**
+ Adds a text button to the right side.
+ 
+ @param text a text of the button.
+ @param textColor a color of the text of the button.
+ @param backgroundColor a color of the background of the button.
+ @param	font a font of the text.
+ */
+- (void)addRightButtonWithText:(NSString*)text textColor:(UIColor*)textColor backgroundColor:(UIColor*)backgroundColor font:(UIFont*)font;
 
 /**
  Adds an image button to the left side.

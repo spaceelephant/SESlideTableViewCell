@@ -135,7 +135,7 @@ enum {
 				
 				cell.textLabel.text = @"Cell with Right Buttons";
 				[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
-				[cell addRightButtonWithText:@"World with Love" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				[cell addRightButtonWithText:@"World with Love" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0] font:[UIFont boldSystemFontOfSize:24]];
 			}
 			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
 			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
