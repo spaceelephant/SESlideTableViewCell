@@ -16,6 +16,7 @@ enum {
 	CellIndexRightLongButtons,
 	CellIndexThreeRightButtons,
 	CellIndexRightImageButton,
+	CellIndexRightImageTextButton,
 	CellIndexLeftRightButtons,
 	CellIndexLeftButtons,
 	CellIndexBackgroundColor,
@@ -168,6 +169,21 @@ enum {
 				
 				cell.textLabel.text = @"Cell with a Right Image Button";
 				[cell addRightButtonWithImage:[UIImage imageNamed:@"image-cloud"] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+			}
+			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
+			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
+			return cell;
+		}	break;
+		case CellIndexRightImageTextButton: {
+			NSString* const CELL_ID = @"CellIndexRightImageTextButton";
+			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
+			if (cell == nil) {
+				cell = [[SESlideTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
+				cell.selectionStyle = UITableViewCellSelectionStyleNone;
+				cell.delegate = self;
+				
+				cell.textLabel.text = @"Cell with a Right Image Text Button";
+				[cell addRightButtonWithImage:[UIImage imageNamed:@"image-cloud-small"] text:@"Hello" textColor:[UIColor whiteColor] font:nil backgroundColor:[UIColor colorWithHue:0.0/360.0f saturation:0.8 brightness:0.9 alpha:1.0]];
 			}
 			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
 			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;

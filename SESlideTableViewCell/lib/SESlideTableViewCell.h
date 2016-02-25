@@ -213,6 +213,17 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSide) {
 - (void)addButtonWithImage:(UIImage*)image backgroundColor:(UIColor*)backgroundColor side:(SESlideTableViewCellSide)side;
 
 /**
+ Adds an image and text button.
+ 
+ @param image An image of the button.
+ @param text A text of the button.
+ @param textColor A color of the text of the button.
+ @param font A font of the text of the button.
+ @param backgroundColor A color of the background of the button.
+ */
+- (void)addButtonWithImage:(UIImage*)image text:(NSString*)text textColor:(UIColor*)textColor font:(UIFont*)font backgroundColor:(UIColor*)backgroundColor side:(SESlideTableViewCellSide)side;
+
+/**
  Adds a text button to the left side.
  
  @param text a text of the button.
@@ -270,5 +281,27 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSide) {
  @param backgroundColor A color of background of the button.
  */
 - (void)addRightButtonWithImage:(UIImage*)image backgroundColor:(UIColor*)backgroundColor;
+
+/**
+ Adds an image and text button to the left side.
+ 
+ @param image A image of the button.
+ @param text A text of the button.
+ @param textColor A color of the text of the button.
+ @param font A font of the text of the button.
+ @param backgrounColor A color of the background of the button.
+ */
+- (void)addLeftButtonWithImage:(UIImage*)image text:(NSString*)text textColor:(UIColor*)textColor font:(UIFont*)font backgroundColor:(UIColor*)backgroundColor;
+/**
+ Adds an image and text button to the right side.
+ 
+ @param image A image of the button.
+ @param text A text of the button.
+ @param textColor A color of the text of the button.
+ @param font A font of the text of the button.
+ @param backgrounColor A color of the background of the button.
+ */
+- (void)addRightButtonWithImage:(UIImage*)image text:(NSString*)text textColor:(UIColor*)textColor font:(UIFont*)font backgroundColor:(UIColor*)backgroundColor;
+
 
 @end

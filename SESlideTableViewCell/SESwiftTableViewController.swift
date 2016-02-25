@@ -14,6 +14,7 @@ enum CellIndex : Int {
 	case RightLongButtons
 	case ThreeRightButtons
 	case RightImageButton
+	case RightImageTextButton
 	case LeftRightButtons
 	case LeftButtons
 	case BackgroundColor
@@ -154,6 +155,20 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 				
 				cell!.textLabel!.text = "Cell with a Right Image Button"
 				cell!.addRightButtonWithImage(UIImage(named: "image-cloud"), backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+			}
+			cell!.showsLeftSlideIndicator = !leftButtonDisabled
+			cell!.showsRightSlideIndicator = !rightButtonDisabled
+			return cell!
+		case .RightImageTextButton:
+			let CELL_ID = "CellRightImageTextButton"
+			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
+			if cell == nil {
+				cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
+				cell!.selectionStyle = .None
+				cell!.delegate = self
+				
+				cell!.textLabel!.text = "Cell with a Right Image Text Button"
+				cell!.addRightButtonWithImage(UIImage(named: "image-cloud-small"), text: "Hello", textColor: UIColor.whiteColor(), font: nil, backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
 			}
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled

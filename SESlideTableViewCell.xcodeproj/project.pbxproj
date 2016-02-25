@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C9110C1D1C7E944C009AE5EF /* image-cloud-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9110C1C1C7E944C009AE5EF /* image-cloud-small@2x.png */; };
 		C9321D871A3B1B650017EB1E /* SESwiftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9505EA5197DCC3100683A6B /* SESwiftTableViewController.swift */; };
 		C9505E80197DCB9400683A6B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9505E7F197DCB9400683A6B /* main.m */; };
 		C9505E83197DCB9400683A6B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9505E82197DCB9400683A6B /* AppDelegate.m */; };
@@ -30,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C9110C1C1C7E944C009AE5EF /* image-cloud-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image-cloud-small@2x.png"; sourceTree = "<group>"; };
 		C9505E7A197DCB9400683A6B /* SESlideTableViewCell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SESlideTableViewCell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9505E7E197DCB9400683A6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9505E7F197DCB9400683A6B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				C9505EA4197DCC3000683A6B /* SESlideTableViewCell-Bridging-Header.h */,
 				C9505E87197DCB9400683A6B /* Main.storyboard */,
 				C9505EAB197DCC5F00683A6B /* image-cloud@2x.png */,
+				C9110C1C1C7E944C009AE5EF /* image-cloud-small@2x.png */,
 				C9505E8A197DCB9400683A6B /* Images.xcassets */,
 				C9505E7D197DCB9400683A6B /* Supporting Files */,
 			);
@@ -222,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9E7A03C1AFE1A820008D81F /* LaunchScreen.xib in Resources */,
+				C9110C1D1C7E944C009AE5EF /* image-cloud-small@2x.png in Resources */,
 				C9505EAC197DCC5F00683A6B /* image-cloud@2x.png in Resources */,
 				C9505E89197DCB9400683A6B /* Main.storyboard in Resources */,
 				C9505E8B197DCB9400683A6B /* Images.xcassets in Resources */,

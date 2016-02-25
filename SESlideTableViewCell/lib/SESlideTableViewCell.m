@@ -979,6 +979,31 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 	[self addButton:view buttonWidth:image.size.width + BUTTON_MARGIN backgroundColor:backgroundColor side:side];
 }
 
+- (void)addButtonWithImage:(UIImage*)image text:(NSString*)text textColor:(UIColor*)textColor font:(UIFont*)font backgroundColor:(UIColor*)backgroundColor side:(SESlideTableViewCellSide)side {
+	UIImageView* imageView = [[UIImageView alloc] initWithImage:image];
+	UILabel* label = [UILabel new];
+	label.text = text;
+	label.textAlignment = NSTextAlignmentCenter;
+	if (font) {
+		label.font = font;
+	}
+	label.textColor = textColor;
+	CGSize textSize = [label sizeThatFits:CGSizeMake(FLT_MAX, FLT_MAX)];
+	CGFloat width = MAX(textSize.width, image.size.width);
+	imageView.frame = CGRectMake((width - image.size.width) * 0.5, 0, image.size.width, image.size.height);
+	label.frame = CGRectMake((width - textSize.width) * 0.5, image.size.height, textSize.width, textSize.height);
+	UIView* subView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, image.size.height + textSize.height)];
+
+	[subView addSubview:imageView];
+	[subView addSubview:label];
+	
+	UIView* view = [[UIView alloc] initWithFrame:subView.frame];
+	subView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
+	[view addSubview:subView];
+	
+	[self addButton:view buttonWidth:width + BUTTON_MARGIN backgroundColor:backgroundColor side:side];
+}
+
 
 - (void)addLeftButtonWithText:(NSString*)text textColor:(UIColor*)textColor backgroundColor:(UIColor*)backgroundColor {
 	[self addButtonWithText:text textColor:textColor backgroundColor:backgroundColor side:SESlideTableViewCellSideLeft];
@@ -997,6 +1022,12 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 }
 - (void)addRightButtonWithImage:(UIImage*)image backgroundColor:(UIColor*)backgroundColor {
 	[self addButtonWithImage:image backgroundColor:backgroundColor side:SESlideTableViewCellSideRight];
+}
+- (void)addLeftButtonWithImage:(UIImage*)image text:(NSString*)text textColor:(UIColor*)textColor font:(UIFont*)font backgroundColor:(UIColor*)backgroundColor {
+	[self addButtonWithImage:image text:text textColor:textColor font:font backgroundColor:backgroundColor side:SESlideTableViewCellSideLeft];
+}
+- (void)addRightButtonWithImage:(UIImage*)image text:(NSString*)text textColor:(UIColor*)textColor font:(UIFont*)font backgroundColor:(UIColor*)backgroundColor {
+	[self addButtonWithImage:image text:text textColor:textColor font:font backgroundColor:backgroundColor side:SESlideTableViewCellSideRight];
 }
 
 
