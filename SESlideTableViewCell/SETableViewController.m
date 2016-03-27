@@ -21,6 +21,7 @@ enum {
 	CellIndexLeftButtons,
 	CellIndexBackgroundColor,
 	CellIndexContentUpdate,
+	CellIndexSlideElasticity,
 	
 	CellIndexCount,
 };
@@ -258,6 +259,22 @@ enum {
 			}
 			[self configureCell:cell atIndex:CellIndexContentUpdate];
 
+			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
+			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
+			return cell;
+		}
+		case CellIndexSlideElasticity: {
+			NSString* const CELL_ID = @"CellIndexSlideElasticity";
+			SESlideTableViewCell* cell = (SESlideTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CELL_ID];
+			if (cell == nil) {
+				cell = [[SESlideTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
+				cell.selectionStyle = UITableViewCellSelectionStyleNone;
+				cell.slideElasticity = SESlideTableViewCellSlideElasticityHard;
+				cell.delegate = self;
+				cell.textLabel.text = @"Cell with Hard Elasticity";
+				[cell addRightButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:180.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+				[cell addLeftButtonWithText:@"Hello" textColor:[UIColor whiteColor] backgroundColor:[UIColor colorWithHue:0.0/360.0 saturation:0.8 brightness:0.9 alpha:1.0]];
+			}
 			cell.showsLeftSlideIndicator = ! m_leftButtonDisabled;
 			cell.showsRightSlideIndicator = ! m_rightButtonDisabled;
 			return cell;

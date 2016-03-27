@@ -37,6 +37,20 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSide) {
 };
 
 /**
+ A slide elasticity of SESlideTableViewCell.
+ */
+typedef NS_ENUM(NSInteger, SESlideTableViewCellSlideElasticity) {
+	/**
+	 The cell slides smoothly.
+	 */
+	SESlideTableViewCellSlideElasticitySmooth,
+	/**
+	 The cell has slide resistance once buttons are completely shown.
+	 */
+	SESlideTableViewCellSlideElasticityHard,
+};
+
+/**
  SESlideTableViewCellDelegate can be used to handle button triggers.
  */
 @protocol SESlideTableViewCellDelegate <NSObject>
@@ -130,6 +144,11 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSide) {
  If the background color of the cell is transparent, this color will be displayed as its background.
  */
 @property (nonatomic) UIColor* slideBackgroundColor;
+
+/**
+ Elasticity of slide for the cell.
+ */
+@property (nonatomic) SESlideTableViewCellSlideElasticity slideElasticity;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 

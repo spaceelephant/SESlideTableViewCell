@@ -366,6 +366,7 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 @synthesize showsLeftSlideIndicator = m_showsLeftSlideIndicator;
 @synthesize showsRightSlideIndicator = m_showsRightSlideIndicator;
 @synthesize indicatorColor = m_indicatorColor;
+@synthesize slideElasticity = m_slideElasticity;
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder{
     if (self = [super initWithCoder:aDecoder]) {
@@ -386,6 +387,7 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 	m_showsLeftSlideIndicator = YES;
 	m_showsRightSlideIndicator = YES;
 	m_indicatorColor = [UIColor colorWithWhite:210/255.0f alpha:1.0f];
+	m_slideElasticity = SESlideTableViewCellSlideElasticitySmooth;
 	m_constraints = [NSMutableArray array];
 	
 	m_panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
@@ -658,7 +660,29 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 			if (m_snapshotContainerView) {
 				CGPoint translation = [gesture translationInView:self];
 				CGRect frame = m_snapshotContainerView.frame;
-				frame.origin.x = translation.x + m_panStartSnapshotViewOriginX;
+				switch (m_slideElasticity) {
+					case SESlideTableViewCellSlideElasticityHard: {
+						CGFloat x = translation.x + m_panStartSnapshotViewOriginX;
+						if (x >= 0) {
+							// left
+							CGFloat targetX = [self originXForSlideState:SESlideTableViewCellSlideStateLeft];
+							if (x > targetX) {
+								x = (x - targetX) * 0.5f + targetX;
+							}
+							frame.origin.x = x;
+						} else {
+							// right
+							CGFloat targetX = [self originXForSlideState:SESlideTableViewCellSlideStateRight];
+							if (x < targetX) {
+								x = (x - targetX) * 0.5f + targetX;
+							}
+							frame.origin.x = x;
+						}
+					}	break;
+					default: {
+						frame.origin.x = translation.x + m_panStartSnapshotViewOriginX;
+					}	break;
+				}
 				m_snapshotContainerView.frame = frame;
 			}
 		}	break;

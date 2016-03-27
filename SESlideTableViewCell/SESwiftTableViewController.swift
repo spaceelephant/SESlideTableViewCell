@@ -19,6 +19,7 @@ enum CellIndex : Int {
 	case LeftButtons
 	case BackgroundColor
 	case ContentUpdate
+	case SlideElasticity
 	
 	case Count
 }
@@ -236,6 +237,22 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 				cell!.addRightButtonWithText("+", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
 			}
 			configureCell(cell, atIndex: indexPath.row)
+			
+			cell!.showsLeftSlideIndicator = !leftButtonDisabled
+			cell!.showsRightSlideIndicator = !rightButtonDisabled
+			return cell!
+		case .SlideElasticity:
+			let CELL_ID = "CellSlideElasticity"
+			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
+			if cell == nil {
+				cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
+				cell!.selectionStyle = .None
+				cell!.slideElasticity = .Hard
+				cell!.delegate = self
+				cell!.textLabel!.text = "Cell with Hard Elasticity"
+				cell!.addRightButtonWithText("Hello", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addLeftButtonWithText("Hello", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+			}
 			
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
