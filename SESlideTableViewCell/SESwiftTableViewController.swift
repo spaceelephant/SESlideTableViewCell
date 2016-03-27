@@ -33,12 +33,12 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		let button = UIBarButtonItem(title: "Index", style: .Plain, target:self, action: "indexButtonDidTap:")
+		let button = UIBarButtonItem(title: "Index", style: .Plain, target:self, action: #selector(SESwiftTableViewController.indexButtonDidTap(_:)))
 		navigationItem.rightBarButtonItem = button
 		
 		let segmentedControl = UISegmentedControl(items: ["L" as NSString, "R" as NSString])
 		segmentedControl.momentary = true
-		segmentedControl.addTarget(self, action: "toggleLeftAndRightButtons:", forControlEvents: .ValueChanged)
+		segmentedControl.addTarget(self, action: #selector(SESwiftTableViewController.toggleLeftAndRightButtons(_:)), forControlEvents: .ValueChanged)
 		self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: segmentedControl)
 	}
 
@@ -274,9 +274,9 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 		if indexPath?.row == CellIndex.ContentUpdate.rawValue {
 			switch buttonIndex {
 			case 0:
-				value--
+				value -= 1
 			case 1:
-				value++
+				value += 1
 			default:
 				break
 			}
