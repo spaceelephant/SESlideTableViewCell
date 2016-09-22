@@ -9,19 +9,19 @@
 import UIKit
 
 enum CellIndex : Int {
-	case RightButtons
-	case RightButtonsAndDisclosureIndicator
-	case RightLongButtons
-	case ThreeRightButtons
-	case RightImageButton
-	case RightImageTextButton
-	case LeftRightButtons
-	case LeftButtons
-	case BackgroundColor
-	case ContentUpdate
-	case SlideElasticity
+	case rightButtons
+	case rightButtonsAndDisclosureIndicator
+	case rightLongButtons
+	case threeRightButtons
+	case rightImageButton
+	case rightImageTextButton
+	case leftRightButtons
+	case leftButtons
+	case backgroundColor
+	case contentUpdate
+	case slideElasticity
 	
-	case Count
+	case count
 }
 
 class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDelegate {
@@ -34,12 +34,12 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		let button = UIBarButtonItem(title: "Index", style: .Plain, target:self, action: #selector(SESwiftTableViewController.indexButtonDidTap(_:)))
+		let button = UIBarButtonItem(title: "Index", style: .plain, target:self, action: #selector(SESwiftTableViewController.indexButtonDidTap(_:)))
 		navigationItem.rightBarButtonItem = button
 		
 		let segmentedControl = UISegmentedControl(items: ["L" as NSString, "R" as NSString])
-		segmentedControl.momentary = true
-		segmentedControl.addTarget(self, action: #selector(SESwiftTableViewController.toggleLeftAndRightButtons(_:)), forControlEvents: .ValueChanged)
+		segmentedControl.isMomentary = true
+		segmentedControl.addTarget(self, action: #selector(SESwiftTableViewController.toggleLeftAndRightButtons(_:)), for: .valueChanged)
 		self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: segmentedControl)
 	}
 
@@ -49,7 +49,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 
     //MARK - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
 		if collation != nil {
 			return collation!.sectionIndexTitles.count
 		} else {
@@ -58,161 +58,161 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 
 	}
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return CellIndex.Count.rawValue
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return CellIndex.count.rawValue
 	}
 	
-	override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
+	override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
 		if collation != nil {
-			return collation!.sectionForSectionIndexTitleAtIndex(index)
+			return collation!.section(forSectionIndexTitle: index)
 		}
 		return index
 	}
 	
-	override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+	override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
 		return collation?.sectionIndexTitles
 	}
 	
-	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		if collation != nil {
 			return collation!.sectionTitles[section]
 		}
 		return nil
 	}
 	
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
-		let cellIndex = CellIndex(rawValue: indexPath.row)
+		let cellIndex = CellIndex(rawValue: (indexPath as NSIndexPath).row)
 		switch cellIndex! {
-		case .RightButtons:
+		case .rightButtons:
 			let CELL_ID = "Cell0"
-			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
+			var cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
-				cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
-				cell!.selectionStyle = .None
+				cell = SESlideTableViewCell(style: .default, reuseIdentifier: CELL_ID)
+				cell!.selectionStyle = .none
 				cell!.delegate = self
 				
 				cell!.textLabel!.text = "Cell with Right Buttons"
-				cell!.addRightButtonWithText("Hello", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
-				cell!.addRightButtonWithText("World!!", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButton(withText: "Hello", textColor: UIColor.white, backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButton(withText: "World!!", textColor: UIColor.white, backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
 			}
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case .RightButtonsAndDisclosureIndicator:
+		case .rightButtonsAndDisclosureIndicator:
 			let CELL_ID = "Cell1"
-			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
+			var cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
-				cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
-				cell!.selectionStyle = .None
+				cell = SESlideTableViewCell(style: .default, reuseIdentifier: CELL_ID)
+				cell!.selectionStyle = .none
 				cell!.delegate = self
 				
 				cell!.textLabel!.text = "Cell with Right Buttons and Disclosure Indicator"
-				cell!.addRightButtonWithText("Hello", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
-				cell!.addRightButtonWithText("World!!", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
-				cell!.accessoryType = .DisclosureIndicator
+				cell!.addRightButton(withText: "Hello", textColor: UIColor.white, backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButton(withText: "World!!", textColor: UIColor.white, backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.accessoryType = .disclosureIndicator
 			}
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case .RightLongButtons:
+		case .rightLongButtons:
 			let CELL_ID = "Cell2"
-			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
+			var cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
-				cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
-				cell!.selectionStyle = .None
+				cell = SESlideTableViewCell(style: .default, reuseIdentifier: CELL_ID)
+				cell!.selectionStyle = .none
 				cell!.delegate = self
 				
 				cell!.textLabel!.text = "Cell with Right Buttons"
-				cell!.addRightButtonWithText("Hello", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
-				cell!.addRightButtonWithText("World with Love", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0), font:UIFont.boldSystemFontOfSize(24))
+				cell!.addRightButton(withText: "Hello", textColor: UIColor.white, backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButton(withText: "World with Love", textColor: UIColor.white, backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0), font:UIFont.boldSystemFont(ofSize: 24))
 			}
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case .ThreeRightButtons:
+		case .threeRightButtons:
 			let CELL_ID = "Cell3"
-			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
+			var cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
-				cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
-				cell!.selectionStyle = .None
+				cell = SESlideTableViewCell(style: .default, reuseIdentifier: CELL_ID)
+				cell!.selectionStyle = .none
 				cell!.delegate = self
 				
 				cell!.textLabel!.text = "Cell with three Right Buttons"
-				cell!.addRightButtonWithText("Hello", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
-				cell!.addRightButtonWithText("World", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
-				cell!.addRightButtonWithText("Again", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 120.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButton(withText: "Hello", textColor: UIColor.white, backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButton(withText: "World", textColor: UIColor.white, backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButton(withText: "Again", textColor: UIColor.white, backgroundColor: UIColor(hue: 120.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
 			}
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case .RightImageButton:
+		case .rightImageButton:
 			let CELL_ID = "Cell4"
-			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
+			var cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
-				cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
-				cell!.selectionStyle = .None
+				cell = SESlideTableViewCell(style: .default, reuseIdentifier: CELL_ID)
+				cell!.selectionStyle = .none
 				cell!.delegate = self
 				
 				cell!.textLabel!.text = "Cell with a Right Image Button"
-				cell!.addRightButtonWithImage(UIImage(named: "image-cloud"), backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButton(with: UIImage(named: "image-cloud"), backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
 			}
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case .RightImageTextButton:
+		case .rightImageTextButton:
 			let CELL_ID = "CellRightImageTextButton"
-			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
+			var cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
-				cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
-				cell!.selectionStyle = .None
+				cell = SESlideTableViewCell(style: .default, reuseIdentifier: CELL_ID)
+				cell!.selectionStyle = .none
 				cell!.delegate = self
 				
 				cell!.textLabel!.text = "Cell with a Right Image Text Button"
-				cell!.addRightButtonWithImage(UIImage(named: "image-cloud-small"), text: "Hello", textColor: UIColor.whiteColor(), font: nil, backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButton(with: UIImage(named: "image-cloud-small"), text: "Hello", textColor: UIColor.white, font: nil, backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
 			}
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case .LeftRightButtons:
+		case .leftRightButtons:
 			let CELL_ID = "Cell5"
-			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
+			var cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
-				cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
-				cell!.selectionStyle = .None
+				cell = SESlideTableViewCell(style: .default, reuseIdentifier: CELL_ID)
+				cell!.selectionStyle = .none
 				cell!.delegate = self
 				
 				cell!.textLabel!.text = "Cell with Left and Right Buttons"
-				cell!.addRightButtonWithText("Hello", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
-				cell!.addRightButtonWithText("Right World!!", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
-				cell!.addLeftButtonWithText("Hello", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
-				cell!.addLeftButtonWithText("Left World!!", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButton(withText: "Hello", textColor: UIColor.white, backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButton(withText: "Right World!!", textColor: UIColor.white, backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addLeftButton(withText: "Hello", textColor: UIColor.white, backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addLeftButton(withText: "Left World!!", textColor: UIColor.white, backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
 			}
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case .LeftButtons:
+		case .leftButtons:
 			let CELL_ID = "Cell6"
-			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
+			var cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
-				cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
-				cell!.selectionStyle = .None
+				cell = SESlideTableViewCell(style: .default, reuseIdentifier: CELL_ID)
+				cell!.selectionStyle = .none
 				cell!.delegate = self
 				
 				cell!.textLabel!.text = "Cell with Left Buttons"
-				cell!.addLeftButtonWithText("Hello", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
-				cell!.addLeftButtonWithText("World!!", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
-				cell!.accessoryType = .DisclosureIndicator
+				cell!.addLeftButton(withText: "Hello", textColor: UIColor.white, backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addLeftButton(withText: "World!!", textColor: UIColor.white, backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.accessoryType = .disclosureIndicator
 			}
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case .BackgroundColor:
+		case .backgroundColor:
 			let CELL_ID = "Cell7"
-			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
+			var cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
-				cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
-				cell!.selectionStyle = .None
+				cell = SESlideTableViewCell(style: .default, reuseIdentifier: CELL_ID)
+				cell!.selectionStyle = .none
 				cell!.delegate = self
 				let bgColor = UIColor(hue: 210/360.0, saturation: 0.1, brightness: 0.9, alpha: 1.0)
 				cell!.backgroundColor = bgColor
@@ -220,38 +220,38 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 				cell!.indicatorColor = UIColor(hue: 12/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0)
 				
 				cell!.textLabel!.text = "Cell with Background Color"
-				cell!.addRightButtonWithText("Hello", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
-				cell!.addRightButtonWithText("World!!", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 180/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButton(withText: "Hello", textColor: UIColor.white, backgroundColor: UIColor(hue: 0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButton(withText: "World!!", textColor: UIColor.white, backgroundColor: UIColor(hue: 180/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
 			}
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case .ContentUpdate:
+		case .contentUpdate:
 			let CELL_ID = "Cell8"
-			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
+			var cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
-				cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
-				cell!.selectionStyle = .None
+				cell = SESlideTableViewCell(style: .default, reuseIdentifier: CELL_ID)
+				cell!.selectionStyle = .none
 				cell!.delegate = self
-				cell!.addRightButtonWithText("-", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
-				cell!.addRightButtonWithText("+", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButton(withText: "-", textColor: UIColor.white, backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButton(withText: "+", textColor: UIColor.white, backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
 			}
-			configureCell(cell, atIndex: indexPath.row)
+			configureCell(cell, atIndex: (indexPath as NSIndexPath).row)
 			
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
 			cell!.showsRightSlideIndicator = !rightButtonDisabled
 			return cell!
-		case .SlideElasticity:
+		case .slideElasticity:
 			let CELL_ID = "CellSlideElasticity"
-			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
+			var cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
-				cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
-				cell!.selectionStyle = .None
-				cell!.slideElasticity = .Hard
+				cell = SESlideTableViewCell(style: .default, reuseIdentifier: CELL_ID)
+				cell!.selectionStyle = .none
+				cell!.slideElasticity = .hard
 				cell!.delegate = self
 				cell!.textLabel!.text = "Cell with Hard Elasticity"
-				cell!.addRightButtonWithText("Hello", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
-				cell!.addLeftButtonWithText("Hello", textColor: UIColor.whiteColor(), backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addRightButton(withText: "Hello", textColor: UIColor.white, backgroundColor: UIColor(hue: 180.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
+				cell!.addLeftButton(withText: "Hello", textColor: UIColor.white, backgroundColor: UIColor(hue: 0.0/360.0, saturation: 0.8, brightness: 0.9, alpha: 1.0))
 			}
 			
 			cell!.showsLeftSlideIndicator = !leftButtonDisabled
@@ -259,36 +259,36 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 			return cell!
 		default:
 			let CELL_ID = "Cell"
-			var cell = tableView.dequeueReusableCellWithIdentifier(CELL_ID) as? SESlideTableViewCell
+			var cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID) as? SESlideTableViewCell
 			if cell == nil {
-				cell = SESlideTableViewCell(style: .Default, reuseIdentifier: CELL_ID)
-				cell!.selectionStyle = .None
+				cell = SESlideTableViewCell(style: .default, reuseIdentifier: CELL_ID)
+				cell!.selectionStyle = .none
 			}
 			return cell!
 		}
     }
 
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let cell = tableView.cellForRowAtIndexPath(indexPath) as! SESlideTableViewCell!
-		switch cell.slideState {
-		case .Center:
-			cell.setSlideState(.Right, animated:true)
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let cell = tableView.cellForRow(at: indexPath) as! SESlideTableViewCell!
+		switch cell!.slideState {
+		case .center:
+			cell?.setSlideState(.right, animated:true)
 		default:
-			cell.setSlideState(.Center, animated:true)
+			cell?.setSlideState(.center, animated:true)
 		}
 	}
 
 	// #pragma mark -
 	
-	func slideTableViewCell(cell: SESlideTableViewCell!, didTriggerLeftButton buttonIndex: NSInteger) {
-		let indexPath = tableView.indexPathForCell(cell)
-		print("left button \(buttonIndex) tapped in cell \(indexPath?.section) - \(indexPath?.row)")
+	func slideTableViewCell(_ cell: SESlideTableViewCell!, didTriggerLeftButton buttonIndex: NSInteger) {
+		let indexPath = tableView.indexPath(for: cell)
+		print("left button \(buttonIndex) tapped in cell \((indexPath as NSIndexPath?)?.section) - \((indexPath as NSIndexPath?)?.row)")
 	}
 	
-	func slideTableViewCell(cell: SESlideTableViewCell!, didTriggerRightButton buttonIndex: NSInteger) {
-		let indexPath = tableView.indexPathForCell(cell)
-		print("right button \(buttonIndex) tapped in cell \(indexPath?.section) - \(indexPath?.row)")
-		if indexPath?.row == CellIndex.ContentUpdate.rawValue {
+	func slideTableViewCell(_ cell: SESlideTableViewCell!, didTriggerRightButton buttonIndex: NSInteger) {
+		let indexPath = tableView.indexPath(for: cell)
+		print("right button \(buttonIndex) tapped in cell \((indexPath as NSIndexPath?)?.section) - \((indexPath as NSIndexPath?)?.row)")
+		if (indexPath as NSIndexPath?)?.row == CellIndex.contentUpdate.rawValue {
 			switch buttonIndex {
 			case 0:
 				value -= 1
@@ -297,16 +297,16 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 			default:
 				break
 			}
-			self.configureCell(cell, atIndex: indexPath!.row)
+			self.configureCell(cell, atIndex: (indexPath! as NSIndexPath).row)
 			cell.updateContentViewSnapshot()
 		}
 	}
 	
-	func slideTableViewCell(cell: SESlideTableViewCell!, canSlideToState slideState: SESlideTableViewCellSlideState) -> Bool {
+	func slideTableViewCell(_ cell: SESlideTableViewCell!, canSlideTo slideState: SESlideTableViewCellSlideState) -> Bool {
 		switch (slideState) {
-		case .Left:
+		case .left:
 			return !leftButtonDisabled
-		case .Right:
+		case .right:
 			return !rightButtonDisabled
 		default:
 			break
@@ -314,41 +314,41 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 		return true
 	}
 	
-	func slideTableViewCell(cell: SESlideTableViewCell!, willSlideToState slideState: SESlideTableViewCellSlideState) {
-		if let indexPath = tableView.indexPathForCell(cell) {
-			print("cell at \(indexPath.section) - \(indexPath.row) will slide to state \(slideState.rawValue)")
+	func slideTableViewCell(_ cell: SESlideTableViewCell!, willSlideTo slideState: SESlideTableViewCellSlideState) {
+		if let indexPath = tableView.indexPath(for: cell) {
+			print("cell at \((indexPath as NSIndexPath).section) - \((indexPath as NSIndexPath).row) will slide to state \(slideState.rawValue)")
 		}
 	}
 	
-	func slideTableViewCell(cell: SESlideTableViewCell!, didSlideToState slideState: SESlideTableViewCellSlideState) {
-		if let indexPath = tableView.indexPathForCell(cell) {
-			print("cell at \(indexPath.section) - \(indexPath.row) did slide to state \(slideState.rawValue)")
+	func slideTableViewCell(_ cell: SESlideTableViewCell!, didSlideTo slideState: SESlideTableViewCellSlideState) {
+		if let indexPath = tableView.indexPath(for: cell) {
+			print("cell at \((indexPath as NSIndexPath).section) - \((indexPath as NSIndexPath).row) did slide to state \(slideState.rawValue)")
 		}
 	}
 	
-	func slideTableViewCell(cell: SESlideTableViewCell!, wilShowButtonsOfSide side: SESlideTableViewCellSide) {
-		if let indexPath = tableView.indexPathForCell(cell) {
-			print("cell at \(indexPath.section) - \(indexPath.row) will show buttons of side \(side.rawValue)")
+	func slideTableViewCell(_ cell: SESlideTableViewCell!, wilShowButtonsOf side: SESlideTableViewCellSide) {
+		if let indexPath = tableView.indexPath(for: cell) {
+			print("cell at \((indexPath as NSIndexPath).section) - \((indexPath as NSIndexPath).row) will show buttons of side \(side.rawValue)")
 		}
 	}
 	
-	func configureCell(cell: SESlideTableViewCell!, atIndex index:Int) {
-		if index == CellIndex.ContentUpdate.rawValue {
+	func configureCell(_ cell: SESlideTableViewCell!, atIndex index:Int) {
+		if index == CellIndex.contentUpdate.rawValue {
 			cell.textLabel?.text = "Cell with value \(value)"
 		}
 	}
 	// #pragma mark -
 	
-	func indexButtonDidTap(sender: AnyObject!) {
+	func indexButtonDidTap(_ sender: AnyObject!) {
 		if collation != nil {
 			collation = nil
 		} else {
-			collation = UILocalizedIndexedCollation.currentCollation()
+			collation = UILocalizedIndexedCollation.current()
 		}
 		tableView.reloadData()
 	}
 	
-	func toggleLeftAndRightButtons(sender: UISegmentedControl!) {
+	func toggleLeftAndRightButtons(_ sender: UISegmentedControl!) {
 		switch (sender.selectedSegmentIndex) {
 		case 0:
 			leftButtonDisabled = !leftButtonDisabled
