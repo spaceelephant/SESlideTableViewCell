@@ -889,8 +889,7 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 		CGRect frame = snapshotView.frame;
 		frame.origin.x = targetPositionX;
 		snapshotView.frame = frame;
-		[m_leftButtonGroupView layoutIfNeeded];
-		[m_rightButtonGroupView layoutIfNeeded];
+		[m_slideView layoutIfNeeded];
 	} completion:^(BOOL finished){
 		if (finished) {
 			if (animationId != m_slideAnimationId) {
