@@ -123,7 +123,7 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSlideElasticity) {
  A slide indicator shows which way you can swipe the cell.
  The default value is YES.
  */
-@property (nonatomic) BOOL showsLeftSlideIndicator;
+@property (nonatomic, assign) BOOL showsLeftSlideIndicator;
 
 /**
  A Boolean value that indicates whether the cell displays a right slide indicator.
@@ -131,24 +131,24 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSlideElasticity) {
  A slide indicator shows which way you can swipe the cell.
  The default value is YES.
  */
-@property (nonatomic) BOOL showsRightSlideIndicator;
+@property (nonatomic, assign) BOOL showsRightSlideIndicator;
 
 /**
  A color of the indicator
  */
-@property (nonatomic) UIColor* indicatorColor;
+@property (nonatomic, strong) UIColor* indicatorColor;
 
 /**
  A background color for the cell when it slides.
  
  If the background color of the cell is transparent, this color will be displayed as its background.
  */
-@property (nonatomic) UIColor* slideBackgroundColor;
+@property (nonatomic, strong) UIColor* slideBackgroundColor;
 
 /**
  Elasticity of slide for the cell.
  */
-@property (nonatomic) SESlideTableViewCellSlideElasticity slideElasticity;
+@property (nonatomic, assign) SESlideTableViewCellSlideElasticity slideElasticity;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 
