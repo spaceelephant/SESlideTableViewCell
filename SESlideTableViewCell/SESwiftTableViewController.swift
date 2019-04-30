@@ -269,7 +269,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
     }
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let cell = tableView.cellForRow(at: indexPath) as! SESlideTableViewCell!
+		let cell = tableView.cellForRow(at: indexPath) as! SESlideTableViewCell?
 		switch cell!.slideState {
 		case .center:
 			cell?.setSlideState(.right, animated:true)
@@ -282,12 +282,12 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 	
 	func slideTableViewCell(_ cell: SESlideTableViewCell!, didTriggerLeftButton buttonIndex: NSInteger) {
 		let indexPath = tableView.indexPath(for: cell)
-		print("left button \(buttonIndex) tapped in cell \((indexPath as NSIndexPath?)?.section) - \((indexPath as NSIndexPath?)?.row)")
+		print("left button \(buttonIndex) tapped in cell \(String(describing: (indexPath as NSIndexPath?)?.section)) - \(String(describing: (indexPath as NSIndexPath?)?.row))")
 	}
 	
 	func slideTableViewCell(_ cell: SESlideTableViewCell!, didTriggerRightButton buttonIndex: NSInteger) {
 		let indexPath = tableView.indexPath(for: cell)
-		print("right button \(buttonIndex) tapped in cell \((indexPath as NSIndexPath?)?.section) - \((indexPath as NSIndexPath?)?.row)")
+		print("right button \(buttonIndex) tapped in cell \(String(describing: (indexPath as NSIndexPath?)?.section)) - \(String(describing: (indexPath as NSIndexPath?)?.row))")
 		if (indexPath as NSIndexPath?)?.row == CellIndex.contentUpdate.rawValue {
 			switch buttonIndex {
 			case 0:
@@ -339,7 +339,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 	}
 	// #pragma mark -
 	
-	func indexButtonDidTap(_ sender: AnyObject!) {
+	@objc func indexButtonDidTap(_ sender: AnyObject!) {
 		if collation != nil {
 			collation = nil
 		} else {
@@ -348,7 +348,7 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 		tableView.reloadData()
 	}
 	
-	func toggleLeftAndRightButtons(_ sender: UISegmentedControl!) {
+	@objc func toggleLeftAndRightButtons(_ sender: UISegmentedControl!) {
 		switch (sender.selectedSegmentIndex) {
 		case 0:
 			leftButtonDisabled = !leftButtonDisabled

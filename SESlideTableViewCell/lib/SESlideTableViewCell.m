@@ -889,19 +889,19 @@ typedef NS_OPTIONS(NSUInteger, SESlideStateOptions) {
 		CGRect frame = snapshotView.frame;
 		frame.origin.x = targetPositionX;
 		snapshotView.frame = frame;
-		[m_slideView layoutIfNeeded];
+		[self->m_slideView layoutIfNeeded];
 	} completion:^(BOOL finished){
 		if (finished) {
-			if (animationId != m_slideAnimationId) {
+			if (animationId != self->m_slideAnimationId) {
 				return;
 			}
-			m_slideState = slideState;
+			self->m_slideState = slideState;
 			if (slideState == SESlideTableViewCellSlideStateCenter) {
-				m_preparedSlideStates = SESlideStateOptionNone;
+				self->m_preparedSlideStates = SESlideStateOptionNone;
 				[self cleanUpSlideView];
 			}
-			if (m_delegate && [m_delegate respondsToSelector:@selector(slideTableViewCell:didSlideToState:)]) {
-				[m_delegate slideTableViewCell:self didSlideToState:slideState];
+			if (self->m_delegate && [self->m_delegate respondsToSelector:@selector(slideTableViewCell:didSlideToState:)]) {
+				[self->m_delegate slideTableViewCell:self didSlideToState:slideState];
 			}
 		}
 	}];
