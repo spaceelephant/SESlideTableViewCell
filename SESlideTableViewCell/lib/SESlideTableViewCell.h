@@ -308,7 +308,7 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSlideElasticity) {
  @param text A text of the button.
  @param textColor A color of the text of the button.
  @param font A font of the text of the button.
- @param backgrounColor A color of the background of the button.
+ @param backgroundColor A color of the background of the button.
  */
 - (void)addLeftButtonWithImage:(UIImage*)image text:(NSString*)text textColor:(UIColor*)textColor font:(UIFont*)font backgroundColor:(UIColor*)backgroundColor;
 /**
@@ -318,7 +318,7 @@ typedef NS_ENUM(NSInteger, SESlideTableViewCellSlideElasticity) {
  @param text A text of the button.
  @param textColor A color of the text of the button.
  @param font A font of the text of the button.
- @param backgrounColor A color of the background of the button.
+ @param backgroundColor A color of the background of the button.
  */
 - (void)addRightButtonWithImage:(UIImage*)image text:(NSString*)text textColor:(UIColor*)textColor font:(UIFont*)font backgroundColor:(UIColor*)backgroundColor;
 
