@@ -17,7 +17,7 @@
 		C9505EA3197DCC1400683A6B /* SESlideTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9505EA2197DCC1400683A6B /* SESlideTableViewCell.m */; };
 		C9505EAA197DCC3100683A6B /* SETableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9505EA7197DCC3100683A6B /* SETableViewController.m */; };
 		C9505EAC197DCC5F00683A6B /* image-cloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9505EAB197DCC5F00683A6B /* image-cloud@2x.png */; };
-		C9E7A03C1AFE1A820008D81F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E7A03B1AFE1A820008D81F /* LaunchScreen.xib */; };
+		C9B24DF6251F7FD5006B0381 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B24DF5251F7FD5006B0381 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +49,7 @@
 		C9505EA6197DCC3100683A6B /* SETableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SETableViewController.h; sourceTree = "<group>"; };
 		C9505EA7197DCC3100683A6B /* SETableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SETableViewController.m; sourceTree = "<group>"; };
 		C9505EAB197DCC5F00683A6B /* image-cloud@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image-cloud@2x.png"; sourceTree = "<group>"; };
-		C9E7A03B1AFE1A820008D81F /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		C9B24DF5251F7FD5006B0381 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,7 +112,7 @@
 			children = (
 				C9505E7E197DCB9400683A6B /* Info.plist */,
 				C9505E7F197DCB9400683A6B /* main.m */,
-				C9E7A03B1AFE1A820008D81F /* LaunchScreen.xib */,
+				C9B24DF5251F7FD5006B0381 /* LaunchScreen.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -188,7 +188,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Space Elephant";
 				TargetAttributes = {
 					C9505E79197DCB9400683A6B = {
@@ -225,9 +225,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9E7A03C1AFE1A820008D81F /* LaunchScreen.xib in Resources */,
 				C9110C1D1C7E944C009AE5EF /* image-cloud-small@2x.png in Resources */,
 				C9505EAC197DCC5F00683A6B /* image-cloud@2x.png in Resources */,
+				C9B24DF6251F7FD5006B0381 /* LaunchScreen.storyboard in Resources */,
 				C9505E89197DCB9400683A6B /* Main.storyboard in Resources */,
 				C9505E8B197DCB9400683A6B /* Images.xcassets in Resources */,
 			);
@@ -308,6 +308,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -332,7 +333,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -363,6 +364,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -380,7 +382,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -394,10 +396,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SESlideTableViewCell/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -414,10 +416,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SESlideTableViewCell/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

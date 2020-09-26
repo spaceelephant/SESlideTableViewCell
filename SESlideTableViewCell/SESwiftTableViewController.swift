@@ -354,14 +354,16 @@ class SESwiftTableViewController: UITableViewController, SESlideTableViewCellDel
 			leftButtonDisabled = !leftButtonDisabled
 			self.tableView.reloadData()
 			let message = leftButtonDisabled ? "Disabled" : "Enabled"
-			let alertView = UIAlertView(title: "Left Button", message: message, delegate: nil, cancelButtonTitle: "OK")
-			alertView.show()
+			let alertController = UIAlertController(title: "Left Button", message: message, preferredStyle: .alert)
+			alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {(action:UIAlertAction!) -> Void in alertController.dismiss(animated: true, completion: nil)}))
+			present(alertController, animated: true, completion: nil)
 		case 1:
 			rightButtonDisabled = !rightButtonDisabled
 			self.tableView.reloadData()
 			let message = rightButtonDisabled ? "Disabled" : "Enabled"
-			let alertView = UIAlertView(title: "Right Button", message: message, delegate: nil, cancelButtonTitle: "OK")
-			alertView.show()
+			let alertController = UIAlertController(title: "Right Button", message: message, preferredStyle: .alert)
+			alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {(action:UIAlertAction!) -> Void in alertController.dismiss(animated: true, completion: nil)}))
+			present(alertController, animated: true, completion: nil)
 		default:
 			break
 		}

@@ -310,15 +310,21 @@ enum {
 	case 0: {
 		m_leftButtonDisabled = ! m_leftButtonDisabled;
 		[self.tableView reloadData];
-		UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Left Button" message:(m_leftButtonDisabled) ? @"Disabled": @"Enabled" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alertView show];
+		UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Left Button" message:(m_leftButtonDisabled) ? @"Disabled": @"Enabled" preferredStyle:UIAlertControllerStyleAlert];
+		[alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action){
+			[alertController dismissViewControllerAnimated:YES completion:nil];
+		}]];
+		[self presentViewController:alertController animated:YES completion:nil];
 	}	break;
-	case 1:
+	case 1: {
 		m_rightButtonDisabled = ! m_rightButtonDisabled;
 		[self.tableView reloadData];
-		UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Right Button" message:(m_leftButtonDisabled) ? @"Disabled": @"Enabled" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alertView show];
-		break;
+		UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Right Button" message:(m_rightButtonDisabled) ? @"Disabled": @"Enabled" preferredStyle:UIAlertControllerStyleAlert];
+		[alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action){
+			[alertController dismissViewControllerAnimated:YES completion:nil];
+			}]];
+		[self presentViewController:alertController animated:YES completion:nil];
+	}	break;
 	}
 }
 
